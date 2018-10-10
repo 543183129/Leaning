@@ -5,3 +5,11 @@
     打开Git Bash
 	$ git config --global user.name "Your Name"
     $ git config --global user.email "email@example.com"
+
+查看文件信息
+$ ls -ah
+添加文件 并提交
+$ git add file1.txt
+$ git add file2.txt file3.txt
+$ git commit -m "add 3 files."
+
