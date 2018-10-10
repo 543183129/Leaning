@@ -12,9 +12,26 @@ $ ls -ah
 	$ git add file1.txt
 	$ git add file2.txt file3.txt
 	$ git commit -m "add 3 files."
+还原
+	$ git checkout -- readme.txt
+
 查看状态;
 	$  git status
 查看版本信息
 	$ git log
 	$ git log  --pretty=oneline   简化版
 
+查看文件按内容:
+	cat XXX
+查看被修改的内容
+	$ git diff readme.txt 
+还原版本
+	$ git reset --hard HEAD^
+	Git必须知道当前版本是哪个版本，在Git中，用HEAD表示当前版本，也就是最新的提交1094adb...（注意我的提交ID和你的肯定不一样），上一个版本就是HEAD^，上上一个版本就是HEAD^^，当然往上100个版本写100个^比较容易数不过来，所以写成HEAD~100。
+恢复到指定的版本
+	$ git reset --hard 1094a
+查看操作命令
+	$ git reflog
+原理:
+   git 的工作区和暂存区
+   git 管理的是修改而不是文件
