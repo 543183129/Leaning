@@ -1,0 +1,2 @@
+cnpm的路径
+C:\Users\abc\AppData\Roaming\npm\node_modules\cnpm

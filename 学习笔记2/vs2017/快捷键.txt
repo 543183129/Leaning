@@ -1,0 +1,6 @@
+1.对齐
+	ctrl+K,D
+2.注释/取消注释
+	ctrl+E,c/ctrl+K,u
+3.region
+	ctrl+K,S

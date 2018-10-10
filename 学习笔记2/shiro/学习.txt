@@ -1,0 +1,25 @@
+1.
+	@RequiresPermissions		：拥有某个权限才执行的方法
+	@RequiresAuthentication		：验证用户是否登录subject.isAuthenticated()==true
+	@RequiresUser				: 验证用户是否被记忆
+	@RequiresGuest				: 验证是否是一个guest的请求，与@RequiresUser完全相反。
+	@RequiresRoles				: 拥有某个角色才可以访问
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	常用名词:
+		1.数据范围:可以访问的数据的大小比如区域: 中国-福建-福州

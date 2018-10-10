@@ -1,0 +1,7 @@
+1. 从3.6开始, 已经没有hibernate-annotation的包了, 这个包被集成进了hibernate-core 原因其实很简单, 再3.6之前, hibernate-core还是JDK1.4兼容的, 所以只能在1.4上编译, 为了支持annotation只能单独再提供一个hibernate-annotation的包, 从3.6开始, hibernate-core升级到了JDK 1.5, 这样就没必要在做这样发分离了2.
+ 从4.0开始, hibernate开始使用jboss logging, 但这只是logging api, 底层的具体logger实现用户可以自己选择喜欢的实现, log4j / slf4j都可以
+
+2. Caused by: java.lang.ClassNotFoundException: javassist.util.proxy.MethodFilter
+	缺少javassist.jar的包
+		作用:字节码编辑工具，可以直接编辑和生成Java生成的字节码，以达到对.class文件进行动态修改的效果
+

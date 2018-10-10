@@ -1,0 +1,549 @@
+1.类体系
+	类的声明:Ext.define();
+	类的实例化：Ext.create("类名",{构造器的参数});
+		var mm=Ext.create("app.con.user",{name:'aa'});
+2.组件
+	var childPanel=Ext.create("Ext.panel.Panel",{
+		title:"child panel",
+		html:"BBBB"
+	})
+	var childPanel2=Ext.create("Ext.panel.Panel",{
+		title:"child panel2",
+		html:"BBBBCCCC"
+	})
+	var comPanel=Ext.create("Ext.container.Viewport",{
+		items:[childPanel,childPanel2]
+	})
+
+	xtype:当一个组件中包含其他的组件的时候，便捷的写法
+		xtype:"panel"
+		2):为一个类取一个短的名称：专门用来创建类实例时使用=》唯一
+		使用：
+			1.Ext.create({xtype: 'login-win'})
+			2.在item中的时候实例化类时可以省略Ext.create()
+
+	延迟加载:
+
+	显示：panel.hide();
+	隐藏: panel.show();
+	浮动组件：floating:true
+	创建自定义组件:
+		Ext.define("xxxx",{
+			extend:"Ext.component",
+
+			newfunction:function(){}
+
+		});
+3.布局与容器
+	Ext.create("Ext.panel.Panel",{
+		renderTo:Ext.getbody(),
+		width:400,
+		height:300,
+		title:"container panel",
+		layout:'column',			//布局
+		items:[
+			{
+				xtype:"panel",
+				title:"childpanel1",
+				widht:50,
+				height:30,
+				columnWith:0.5
+			},{
+				xtype:"panel",
+				title:"childpanel2",
+				widht:50,
+				height:30,
+				columnWith:0.5
+			}
+		]
+
+	})
+4.数据包
+	orm框架
+	schema:一个比较大的范围
+	model 	模型             =>更多是定义，一种格式的规范
+		field
+		assocaition
+		validation
+		proxy
+
+		定义:Ext.define("xxxx",{
+			extend:"Ext.data.Model",
+			field:[
+				{"name":id,type:"int"}
+				{"name":name,type:"string"}
+			],
+			validators:{
+				name:[
+					'presence',
+					{'type':'length',min:7}
+
+				]
+			}
+			schema:{
+				namespace:"xxx",
+				proxy:{
+					type:"ajax",
+					url:"",
+					render:{
+						type:"json",
+						rootPorperty:{}'
+					}
+				}
+			}
+		});
+
+	stores	仓储        
+		filter
+		group
+		sort
+
+		var store=new Ext.data.Store({
+			model:'xxxx.User';
+		});
+		store.load({
+			callback:function(){
+				////
+			}
+		})
+		//或者使用内联的方式
+		var store=new Ext.data.Store({
+			model:'xxxx.User',
+			//过滤
+			filters:{
+				property:'name',
+				value:'';
+			},
+			//排序
+			sorters:[name,id],
+			data:[{
+				对象1
+			},{
+				对象2
+			}]
+		});
+	Assocaitions 关联关系
+		fields中某个属性前添加	reference:'User'
+			//读取user中id是1 的对象
+		MyApp.model.User.load(1,{
+			callback:function(user){
+				console.log(user.get('name'));
+				user.post(function(posts){
+					posts.each(function(post){
+						console.log(post.get('title'));
+					})
+				})
+			}
+
+		});
+	Validation 验证
+		进行验证：newUser.isValid();
+		获取错误信息：var errors=newUser.getValidation();
+							error=errors.get('name');
+
+5.事件,
+	监听事件
+		//监听button
+		Ext.create('Ext.Button',{
+			text:'点击',
+			renderTo:ext.getBody(),
+			listeners:{
+				click:function(){
+					Ext.Msg.alert("haha");
+				},
+				mouseover:function(){
+					Ext.Msg.alert("aa");
+				},
+				hide:function(){
+					Ext.defer(function(){
+						this.show();
+					},1000,this)
+				}
+			}
+		})
+	稍后添加监听事件
+		var button=Ext.create('Ext.Button',{
+			text:'点击',
+			renderTo:ext.getBody(),
+		})
+		button.on('click',function(){
+			Ext.Msg.alert("haha");
+		})
+
+
+	删除事件监听
+		button.un('click','监听的内容')
+	监听范围选项,
+		button.on({click:{
+			scope:panel,
+			fn:function(){
+				xxxx
+			}
+		}})
+	只监听事件一次
+		single:true
+	缓冲配置
+		多长时间内只允许进行一次
+		buffer:2000
+	发送自定义事件
+	监听DOM事件
+		可以监听原生的html
+
+1.item中设置相同的属性,使代码更简洁
+	default:{
+		 xtype: 'textfield', 
+	}
+2.属性:
+	msgTarget: 'side':错误提示的位置
+	vtype: 'alphanum'：高级验证方式
+	inputType: 'password'：密码以*来显示
+
+
+
+
+	//		    plugins:[  
+//		                 Ext.create('Ext.grid.plugin.CellEditing',{  
+//		                     clicksToEdit:1 //设置单击单元格编辑  
+//		                 })  
+//		   ],   
+		   tbar:['-',{  
+	            text:'添加一行',  
+	            handler:function(){  
+	            	//初始化的数据
+	        		var recordMX = new Ext.data.Record({
+	        			xsxh00 : '99999',
+	        			ysxm00:'新增',
+	        			wshjys:new Ext.form.ComboBox({
+	        				store : wshjysStroe,
+	        				displayField : 'text',
+	        				valueField : 'text',
+	        				mode : 'local',
+	        				triggerAction : 'all',
+	        				typeAhead : true,
+	        				forceSelection : true,
+	        				lazyRender : true,
+	        				loadingText : '载入中...'
+	        				})
+	        		});
+	        		docGroupMXGridStore.add(recordMX);
+	        	//	docGroupMXGridStore.insert(0,p);  
+	                }  
+	            },'-',{  
+	                text:'删除一行',  
+	                handler:function(){  
+	                    Ext.Msg.confirm('系统提示','确定要删除？',function(btn){  
+	                        if(btn=='yes'){  
+	                            var sm = docGroupMXGrid.getSelectionModel();  
+	                            var record = sm.getSelection()[0];  
+	                            docGroupMXGridStore.remove(record);  
+	                        }  
+	                    });  
+	                }  
+	        },]
+		});
+
+
+yszid0	number(5)			    医生组id
+yszmc0	varchar2(20)			医生组名称
+ssksbh	number(5)			    所属科室编号 f.k=bm_bmbm00.bmbh00
+ssksmc	varchar2(20)			所属科室名称
+xsxh00	number(5)	y		    显示序号
+ksrq00	varchar2(8)			    开始日期
+kssj00	varchar2(8)			    开始时间
+jsrq00	varchar2(8)	y	'20991231'	结束日期
+jssj00	varchar2(8)	y	'23:59:59'	结束时间
+yszzt0	char(1)		         '0'	医生组状态'1'新增,可删,'2'使用中,不可删,'3'暂停使用,不可删
+wdwbh0	varchar2(36)	y		外系统编号，用于切换系统或者是做接口时
+ssbq00	number(5)	y		
+fzrbh0	number(5)	y		   负责人编号
+mzzybz	varchar2(1)	y		   门诊住院标志:0门诊 1住院 2公用
+
+
+--医师组明细
+yszid0	number(5)			医生组编号 f.k=zs_ysz000.yszbh0
+ysbh00	number(5)			医生编号   f.k=bm_ygbm00.ygbh00
+ysxm00	varchar2(40)			医生姓名
+yslb00	varchar2(1)			医师类别(职称等级) f.k=bm_yslb00.yslb00
+ksrq00	varchar2(8)			开始日期
+kssj00	varchar2(8)			开始时间
+jsrq00	varchar2(8)	y	  '20991231'	结束日期
+jssj00	varchar2(8)	y	  '23:59:59'	结束时间
+xsxh00	number(5)	y		显示序号
+yszt00	char(1)		  '0' 	医生状态'1'新增,可删,'2'使用中,不可删,'3'暂停使用,不可删
+zmxid0	number(5)			组明细id
+wshjys	varchar2(20)	y		文书痕迹颜色
+yslb01	varchar2(1)		'9'	
+yslb02	varchar2(1)		'9'	
+yslb03	varchar2(1)		'9'	
+yslb04	varchar2(1)		'9'	
+yslb05	varchar2(1)		'9'	
+bljsdj	char(1)		'1'	病历检索等级  1:一级检索 2:二级检索 3:三级检索
+djys00	number(5)	y		
+djysxm	varchar2(30)	y		
+xzjb00	char(1)		'0'	
+fhdlmm	varchar2(50)	y	
+
+--医生类别
+yslb00	varchar2(3)			医师类别
+yslbmc	varchar2(16)		医生类别名称
+badj00	number(1)			病案等级 0察看1撰写２修订
+ysdj00	number(1)			医生等级 数值越大越高级
+pysm00	varchar2(10)	y		
+wbsm00	varchar2(10)	y		
+scjkdj	varchar2(2)	y		描述用药审查接口的医生等级
+cjr000	number(5)			创建人
+cjrqsj	char(16)		to_char(sysdate,'yyyymmddhh24:mi:ss')	创建日期时间
+xgr000	number(5)	y		最后修改人
+xgrqsj	varchar2(16)	y		最后修改日期时间
+sfyx00	char(1)		'1'	是否有效 1有效0无效
+zlxmid	number(10)	y		对应的会诊费zlxmid
+hzxmid	number(8)	y		
+
+
+
+
+一般建立的字段都是6个字符，不够的用数字添加	
+/**
+		 * 医生lie'b
+		 */
+		var yslbStroe = new Ext.data.ArrayStore({
+			fields : [textVar],
+			data : ComboxData.YSLB
+		});
+		
+
+
+
+ygbh00	number(5)			员工编号，内部号 sq_bm_ygbm00_ygbh00
+zwxm00	varchar2(40)			中文姓名
+xb0000	varchar2(2)		'男'	性别
+xkh000	varchar2(10)			胸卡号
+dlmm00	varchar2(40)	y		登录密码，字段作废
+pysm00	varchar2(40)	y		拼音首码
+wbsm00	varchar2(40)	y		五笔首码
+bmbh00	number(5)	y		所属部门编号
+ygxz00	varchar2(10)	y		员工性质(一个员工可设置多种性质,0实习医生,1处方医生,2护士,3收费员,4药房人员,5系统维护人员,6采购员,7药库保管员,a120医生,b120护士,c120司机,
+cfjb00	number(3)		0	处方级别
+gzdj00	char(1)		'0'	贵重等级
+mzdj00	char(1)		'0'	麻醉等级
+dpdj00	char(1)		'0'	毒品等级
+sjdj00	char(1)		'0'	神经等级
+brid00	number(10)		0	员工对应的病人id号
+mrghlb	number(5)		1	门诊医生默认挂号类别
+czbz00	char(1)		'0'	'0'新增员工,可删除,'1'现有员工,不可删除,'2'该员工现不用,但不可删除
+cjgzrq	char(8)	y		
+yslb00	varchar2(3)	y		医生职称等级
+yhkl00	varchar2(200)	y		用户口令
+ssdj00	varchar2(1)	y		手术等级
+ylfl00	varchar2(1)	y		
+yytqts	number(3)	y	'7'	
+czrq01	char(8)	y		新增操作日期
+czsj01	char(8)	y		新增操作时间
+czy001	number(5)	y		操作员
+cfqcs0	char(1)	y		
+ysflbh	varchar2(2)	y		医生分类 '0':中医师 '1':中西医师 '2':西医师 '3':其他
+xsxh00	number(5)	y		显示序号
+kssjb0	number(2)		0	抗生素级别 0非抗生素，1类抗生素 2类抗生素 3类抗生素
+zwid00	number(3)	y		职务id bm_ygzw00.zwid00
+mzcflb	varchar2(5)	y	'012'	
+yszjhm	varchar2(20)	y		从 医生证件号码 扩展为全院职工的 执业证书编号
+sfsdyh	char(1)		'0'	是否锁定用户,锁定后不能登陆
+sdrq00	char(8)	y		锁定日期
+sdsj00	char(8)	y		锁定时间
+sdyy00	varchar2(50)	y		锁定原因
+mmqrrq	char(8)	y		密码确认日期
+dh0000	varchar2(20)	y		
+yspqlb	varchar2(2)		'0'	医生类别0:院内聘 1:院外聘
+cjr000	number(5)			
+cjrqsj	char(16)		to_char(sysdate,'yyyymmddhh24:mi:ss')	
+xgr000	number(5)	y		
+xgrqsj	varchar2(16)	y		
+yhkl01	varchar2(200)	y		
+sfzbh0	varchar2(20)	y		身份证编号
+wdwbh0	varchar2(20)	y		外系统编号
+ygcsrq	char(8)	y		出生日期
+lysj00	char(8)	y		来院时间
+cjgzsj	char(8)	y		参加工作时间
+zgxl00	number(10)	y		最高学历(bm_tyzd00.zdmc00=员工信息_学历).nbbh00
+xw0000	number(10)	y		学位(bm_tyzd00.zdmc00=员工信息_学位).nbbh00)
+pqqssj	char(8)	y		聘期起始时间
+byyx00	varchar2(100)	y		毕业院校专业学制等
+zyjszc	number(10)	y		专业技术职称
+gwdj00	number(10)	y		岗位等级名称(bm_tyzd00.zdmc00=员工信息_岗位名称及等级).nbbh00)
+zcqdsj	char(8)	y		职称资格取得时间
+zcplsj	char(8)	y		职称聘任时间
+xzzw00	number(10)	y		行政职务(bm_tyzd00.zdmc00=员工信息_行政职务).nbbh00)
+xzplsj	char(8)	y		行政职务聘任时间
+jxzc00	number(10)	y		教学职称(bm_tyzd00.zdmc00=员工信息_教学职称).nbbh00)
+jxzcsj	char(8)	y		教学职称确定年月
+zzmm00	number(10)	y		政治面貌(bm_tyzd00.zdmc00=员工信息_政治面貌).nbbh00)
+bz0000	varchar2(100)	y		备注
+sgsrzd	char(1)		'0'	是否允许手工输入诊断 0：不允许 1允许  默认为0不允许手工输入
+zzzt00	number(10)	y		在职状态(bm_tyzd00.zdmc00=员工信息_在职状态).nbbh00)
+ryfl00	number(10)	y		人员分类(bm_tyzd00.zdmc00=员工信息_人员分类).nbbh00)
+yngzfz	varchar2(20)	y		
+csrq00	char(8)	y		
+sxspdj	char(1)	y		
+xkh001	varchar2(10)	y		员工的胸卡号 新增一个胸卡号,想做到按工号和拼音首码都能登录
+yhzmm0	varchar2(200)	y		
+ystcbl	number(12,2)	y		
+wsxysh	char(1)	y		文书是否需要审核  1：需要审核  0或空:代表文书不需要审核 
+yyid00	varchar2(6)	y	'220007'	
+ygtc00	varchar2(50)	y		
+ygjj00	varchar2(200)	y		
+fpuser	varchar2(20)	y		非税发票登录用户
+fppwd0	varchar2(20)	y		非税发票登录密码
+jsywqx	char(1)		'0'	计生药物权限 0无权限，1有权限
+
+
+
+
+--部门
+bmbh00	number(5)			部门编号
+bh0000	varchar2(15)			编号，层次码,打印顺序号
+flag00	char(1)		'1'	标志:'1'--叶子,'0'--树枝
+bmmc00	varchar2(30)			部门名称
+pysm00	varchar2(10)	y		拼音首码
+wbsm00	varchar2(10)	y		五笔首码
+bmxz00	char(1)	y	'a'	部门性质:'0'住院临床科室，'1'门诊临床科室,'2'门诊药房，'3',住院药房，'4'收费处，'5'医技科室,'6'药库,'7'外单位,'9'病区.'a'其它
+fybz00	char(1)	y	'0'	盘点调价标志:'3'(药房、药库)盘点,'5'药品正在调价,'0'其他
+sycw00	number(3)	y	0	实有床位，统计时用
+yjxx00	number(6,2)	y	0	预缴金下限，第一次预缴金的下限(病区押金下限)
+ckxx00	number(10,2)	y	100	催款下限，病区提示催款的下限
+jzxx00	number(6,2)	y	0	记账下限，病区病人实际余额的下限
+czbz00	char(1)	y	'0'	'0'新增部门,可删除,'1'现存部门,不可删除,'2'部门不存在,但不可删除
+yyid00	varchar2(6)	y		医院内部号
+jkbh01	varchar2(10)	y		与其他系统做接口时的编号
+ksdh00	varchar2(20)	y		科室代号
+xzghlb	varchar2(50)	y		限制挂号类别
+zxwxts	varchar2(180)	y		
+pxxh00	number(3)	y		排序字段
+sficu0	char(1)	y	'0'	icu字段
+kfcw00	number(5)	y	0	开放床位数
+sbksid	varchar2(6)	y		上报科室
+qfsx00	number(16,2)	y	0	欠费上限
+chqz00	varchar2(4)	y		
+sfwkks	varchar2(2)	y	'0'	是否外科系统科室 0:不是 1:是
+zjfz00	char(1)	y	'0'	
+ksflbh	varchar2(1)	y		是否属于无形资产标志 0不属于,1属于
+sfqtxs	char(1)	y	'y'	
+cjr000	number(5)	y		
+cjrqsj	char(16)	y	to_char(sysdate,'yyyymmddhh24:mi:ss')	
+xgr000	number(5)	y		
+xgrqsj	varchar2(16)	y		
+sfyx00	char(1)	y	'1'	
+yyksbm	varchar2(20)	y		厦门医保接口yyksbm(各家医院系统自定义的科室编码)
+dymzks	number(5)	y		对应门诊科室 bm_bmbm00.bmbh00
+dyzyks	number(5)	y		对应住院科室 bm_bmbm00.bmbh00
+bktszx	char(1)	y	'0'	本科室项目是否提示执行 0: 否 1:是
+bqjzcw	number(5)	y	0	病区急诊床位数
+ksgxcw	number(5)	y	0	科室共享床位数
+ybksbh	varchar2(10)	y		对应医保科室编号
+bzksbh	varchar2(10)	y		对应标准科室编号
+ybksmc	varchar2(50)	y		
+fbckxx	varchar2(20)	y		
+sjqx00	char(1)	y	'1'	数据权限 0:院级 1:科室
+jkbh02	varchar2(20)	y		
+whksid	number(5)	y		
+whksmc	varchar2(30)	y		
+
+
+
+--员工编码
+ygbh00	number(5)			员工编号，内部号 sq_bm_ygbm00_ygbh00
+zwxm00	varchar2(40)			中文姓名
+xb0000	varchar2(2)		'男'	性别
+xkh000	varchar2(10)			胸卡号
+dlmm00	varchar2(40)	y		登录密码，字段作废
+pysm00	varchar2(40)	y		拼音首码
+wbsm00	varchar2(40)	y		五笔首码
+bmbh00	number(5)	y		所属部门编号
+ygxz00	varchar2(10)	y		员工性质(一个员工可设置多种性质,0实习医生,1处方医生,2护士,3收费员,4药房人员,5系统维护人员,6采购员,7药库保管员,a120医生,b120护士,c120司机,
+cfjb00	number(3)		0	处方级别
+gzdj00	char(1)		'0'	贵重等级
+mzdj00	char(1)		'0'	麻醉等级
+dpdj00	char(1)		'0'	毒品等级
+sjdj00	char(1)		'0'	神经等级
+brid00	number(10)		0	员工对应的病人id号
+mrghlb	number(5)		1	门诊医生默认挂号类别
+czbz00	char(1)		'0'	'0'新增员工,可删除,'1'现有员工,不可删除,'2'该员工现不用,但不可删除
+cjgzrq	char(8)	y		
+yslb00	varchar2(3)	y		医生职称等级
+yhkl00	varchar2(200)	y		用户口令
+ssdj00	varchar2(1)	y		手术等级
+ylfl00	varchar2(1)	y		
+yytqts	number(3)	y	'7'	
+czrq01	char(8)	y		新增操作日期
+czsj01	char(8)	y		新增操作时间
+czy001	number(5)	y		操作员
+cfqcs0	char(1)	y		
+ysflbh	varchar2(2)	y		医生分类 '0':中医师 '1':中西医师 '2':西医师 '3':其他
+xsxh00	number(5)	y		显示序号
+kssjb0	number(2)		0	抗生素级别 0非抗生素，1类抗生素 2类抗生素 3类抗生素
+zwid00	number(3)	y		职务id bm_ygzw00.zwid00
+mzcflb	varchar2(5)	y	'012'	
+yszjhm	varchar2(20)	y		从 医生证件号码 扩展为全院职工的 执业证书编号
+sfsdyh	char(1)		'0'	是否锁定用户,锁定后不能登陆
+sdrq00	char(8)	y		锁定日期
+sdsj00	char(8)	y		锁定时间
+sdyy00	varchar2(50)	y		锁定原因
+mmqrrq	char(8)	y		密码确认日期
+dh0000	varchar2(20)	y		
+yspqlb	varchar2(2)		'0'	医生类别0:院内聘 1:院外聘
+cjr000	number(5)			
+cjrqsj	char(16)		to_char(sysdate,'yyyymmddhh24:mi:ss')	
+xgr000	number(5)	y		
+xgrqsj	varchar2(16)	y		
+yhkl01	varchar2(200)	y		
+sfzbh0	varchar2(20)	y		身份证编号
+wdwbh0	varchar2(20)	y		外系统编号
+ygcsrq	char(8)	y		出生日期
+lysj00	char(8)	y		来院时间
+cjgzsj	char(8)	y		参加工作时间
+zgxl00	number(10)	y		最高学历(bm_tyzd00.zdmc00=员工信息_学历).nbbh00
+xw0000	number(10)	y		学位(bm_tyzd00.zdmc00=员工信息_学位).nbbh00)
+pqqssj	char(8)	y		聘期起始时间
+byyx00	varchar2(100)	y		毕业院校专业学制等
+zyjszc	number(10)	y		专业技术职称
+gwdj00	number(10)	y		岗位等级名称(bm_tyzd00.zdmc00=员工信息_岗位名称及等级).nbbh00)
+zcqdsj	char(8)	y		职称资格取得时间
+zcplsj	char(8)	y		职称聘任时间
+xzzw00	number(10)	y		行政职务(bm_tyzd00.zdmc00=员工信息_行政职务).nbbh00)
+xzplsj	char(8)	y		行政职务聘任时间
+jxzc00	number(10)	y		教学职称(bm_tyzd00.zdmc00=员工信息_教学职称).nbbh00)
+jxzcsj	char(8)	y		教学职称确定年月
+zzmm00	number(10)	y		政治面貌(bm_tyzd00.zdmc00=员工信息_政治面貌).nbbh00)
+bz0000	varchar2(100)	y		备注
+sgsrzd	char(1)		'0'	是否允许手工输入诊断 0：不允许 1允许  默认为0不允许手工输入
+zzzt00	number(10)	y		在职状态(bm_tyzd00.zdmc00=员工信息_在职状态).nbbh00)
+ryfl00	number(10)	y		人员分类(bm_tyzd00.zdmc00=员工信息_人员分类).nbbh00)
+yngzfz	varchar2(20)	y		
+csrq00	char(8)	y		
+sxspdj	char(1)	y		
+xkh001	varchar2(10)	y		员工的胸卡号 新增一个胸卡号,想做到按工号和拼音首码都能登录
+yhzmm0	varchar2(200)	y		
+ystcbl	number(12,2)	y		
+wsxysh	char(1)	y		文书是否需要审核  1：需要审核  0或空:代表文书不需要审核 
+yyid00	varchar2(6)	y	'220007'	
+ygtc00	varchar2(50)	y		
+ygjj00	varchar2(200)	y		
+fpuser	varchar2(20)	y		非税发票登录用户
+fppwd0	varchar2(20)	y		非税发票登录密码
+jsywqx	char(1)		'0'	计生药物权限 0无权限，1有权限
+
+
+
+{BM_YGBM00_ZWXM00=管理员, BM_YGBM00_XB0000=女, BM_YGBM00_XKH000=9999, BM_YGBM00_DLMM00=null, BM_YGBM00_PYSM00=gly1 , BM_YGBM00_WBSM00=tgk1 , BM_YGBM00_BMBH00=2112, BM_YGBM00_YGXZ00=135, BM_YGBM00_BRID00=0, BM_YGBM00_MRGHLB=16, BM_YGBM00_CZBZ00=1, BM_YGBM00_CJGZRQ=null, BM_YGBM00_YSLB00=3, BM_YGBM00_YHKL00=770F2879A674B463BA24BF81A425FE15, BM_YGBM00_SSDJ00=1, BM_YGBM00_YLFL00=null, BM_YGBM00_YYTQTS=2, BM_YGBM00_CZRQ01=null, BM_YGBM00_CZSJ01=null, BM_YGBM00_CZY001=1057, BM_YGBM00_YSZJHM=管理员, BM_YGBM00_SFSDYH=0, BM_YGBM00_SDRQ00=20170503, BM_YGBM00_SDSJ00=14:29:06, BM_YGBM00_SDYY00=登陆密码错误, BM_YGBM00_MMQRRQ=20160628, BM_YGBM00_DH0000=null, BM_BMBM00_BMBH00=2112, BM_BMBM00_BH0000=020102, BM_BMBM00_FLAG00=1, BM_BMBM00_BMMC00=收费处, BM_BMBM00_PYSM00=sfc, BM_BMBM00_WBSM00=nxt, BM_BMBM00_BMXZ00=4, BM_BMBM00_FYBZ00=0, BM_BMBM00_SYCW00=0, BM_BMBM00_YJXX00=0, BM_BMBM00_CKXX00=0, BM_BMBM00_JZXX00=0, BM_BMBM00_CZBZ00=1, BM_BMBM00_YYID00=220007, BM_BMBM00_JKBH01=20102, BM_BMBM00_KSDH00=null, BM_BMBM00_XZGHLB=null, BM_BMBM00_ZXWXTS=null, BM_BMBM00_PXXH00=101, BM_BMBM00_SFICU0=0, BM_BMBM00_KFCW00=0, BM_BMBM00_SBKSID=null, BM_BMBM00_QFSX00=0, BM_BMBM00_CHQZ00=null, BM_BMBM00_ZJFZ00=0, BM_YGBM00_YGBH00=1057, BM_YGBM00_YSFLBH=1, BM_YGBM00_WDWBH0=null, BM_YGBM00_SGSRZD=1, BM_YGBM00_GZDJ00=1, BM_YGBM00_MZDJ00=3, BM_YGBM00_DPDJ00=3, BM_YGBM00_SJDJ00=1, BM_YGBM00_KSSJB0=1, BM_YGBM00_CFJB00=5}
+[BM_YGBM00_ZWXM00, BM_YGBM00_XB0000, BM_YGBM00_XKH000, BM_YGBM00_DLMM00, BM_YGBM00_PYSM00, BM_YGBM00_WBSM00, BM_YGBM00_BMBH00, BM_YGBM00_YGXZ00, BM_YGBM00_BRID00, BM_YGBM00_MRGHLB, BM_YGBM00_CZBZ00, BM_YGBM00_CJGZRQ, BM_YGBM00_YSLB00, BM_YGBM00_YHKL00, BM_YGBM00_SSDJ00, BM_YGBM00_YLFL00, BM_YGBM00_YYTQTS, BM_YGBM00_CZRQ01, BM_YGBM00_CZSJ01, BM_YGBM00_CZY001, BM_YGBM00_YSZJHM, BM_YGBM00_SFSDYH, BM_YGBM00_SDRQ00, BM_YGBM00_SDSJ00, BM_YGBM00_SDYY00, BM_YGBM00_MMQRRQ, BM_YGBM00_DH0000, BM_BMBM00_BMBH00, BM_BMBM00_BH0000, BM_BMBM00_FLAG00, BM_BMBM00_BMMC00, BM_BMBM00_PYSM00, BM_BMBM00_WBSM00, BM_BMBM00_BMXZ00, BM_BMBM00_FYBZ00, BM_BMBM00_SYCW00, BM_BMBM00_YJXX00, BM_BMBM00_CKXX00, BM_BMBM00_JZXX00, BM_BMBM00_CZBZ00, BM_BMBM00_YYID00, BM_BMBM00_JKBH01, BM_BMBM00_KSDH00, BM_BMBM00_XZGHLB, BM_BMBM00_ZXWXTS, BM_BMBM00_PXXH00, BM_BMBM00_SFICU0, BM_BMBM00_KFCW00, BM_BMBM00_SBKSID, BM_BMBM00_QFSX00, BM_BMBM00_CHQZ00, BM_BMBM00_ZJFZ00, BM_YGBM00_YGBH00, BM_YGBM00_YSFLBH, BM_YGBM00_WDWBH0, BM_YGBM00_SGSRZD, BM_YGBM00_GZDJ00, BM_YGBM00_MZDJ00, BM_YGBM00_DPDJ00, BM_YGBM00_SJDJ00, BM_YGBM00_KSSJB0, BM_YGBM00_CFJB00]
+{bm_bmbm00_pysm00=sfc, bm_ygbm00_ysflbh=1, bm_ygbm00_czsj01=null, bm_ygbm00_kssjb0=1, bm_ygbm00_mmqrrq=20160628, bm_ygbm00_ylfl00=null, bm_bmbm00_pxxh00=101, bm_ygbm00_dlmm00=null, bm_ygbm00_bmbh00=2112, bm_bmbm00_fybz00=0, bm_ygbm00_sjdj00=1, bm_bmbm00_xzghlb=null, bm_ygbm00_pysm00=gly1 , bm_bmbm00_ckxx00=0, bm_ygbm00_xb0000=女, bm_bmbm00_zjfz00=0, bm_ygbm00_sdyy00=登陆密码错误, bm_ygbm00_dpdj00=3, bm_bmbm00_chqz00=null, bm_bmbm00_bmxz00=4, bm_bmbm00_jkbh01=20102, bm_ygbm00_zwxm00=管理员, bm_ygbm00_ssdj00=1, bm_bmbm00_yjxx00=0, bm_ygbm00_ygxz00=135, bm_ygbm00_sgsrzd=1, bm_ygbm00_cjgzrq=null, bm_ygbm00_czbz00=1, bm_bmbm00_jzxx00=0, bm_ygbm00_mrghlb=16, bm_ygbm00_sfsdyh=0, bm_ygbm00_sdrq00=20170503, bm_ygbm00_yytqts=2, bm_bmbm00_bmbh00=2112, bm_bmbm00_sbksid=null, bm_bmbm00_kfcw00=0, bm_bmbm00_sycw00=0, bm_ygbm00_czrq01=null, bm_ygbm00_ygbh00=1057, bm_bmbm00_czbz00=1, bm_bmbm00_wbsm00=nxt, bm_ygbm00_gzdj00=1, bm_ygbm00_yszjhm=管理员, bm_ygbm00_czy001=1057, bm_bmbm00_ksdh00=null, bm_bmbm00_sficu0=0, bm_ygbm00_sdsj00=14:29:06, bm_ygbm00_wbsm00=tgk1 , bm_ygbm00_yhkl00=770F2879A674B463BA24BF81A425FE15, bm_ygbm00_cfjb00=5, bm_bmbm00_flag00=1, bm_ygbm00_mzdj00=3, bm_ygbm00_wdwbh0=null, bm_ygbm00_xkh000=9999, bm_ygbm00_brid00=0, bm_bmbm00_yyid00=220007, bm_bmbm00_qfsx00=0, bm_ygbm00_yslb00=3, bm_bmbm00_bmmc00=收费处, bm_bmbm00_zxwxts=null, bm_bmbm00_bh0000=020102, bm_ygbm00_dh0000=null}
+
+
+
+usrid:1507
+
+
+{BM_YGBM00_ZWXM00=管理员, BM_YGBM00_XB0000=女, BM_YGBM00_XKH000=9999, BM_YGBM00_DLMM00=null, BM_YGBM00_PYSM00=gly1 , BM_YGBM00_WBSM00=tgk1 , BM_YGBM00_BMBH00=2112, BM_YGBM00_YGXZ00=135, BM_YGBM00_BRID00=0, BM_YGBM00_MRGHLB=16, BM_YGBM00_CZBZ00=1, BM_YGBM00_CJGZRQ=null, BM_YGBM00_YSLB00=3, BM_YGBM00_YHKL00=770F2879A674B463BA24BF81A425FE15, BM_YGBM00_SSDJ00=1, BM_YGBM00_YLFL00=null, BM_YGBM00_YYTQTS=2, BM_YGBM00_CZRQ01=null, BM_YGBM00_CZSJ01=null, BM_YGBM00_CZY001=1057, BM_YGBM00_YSZJHM=管理员, BM_YGBM00_SFSDYH=0, BM_YGBM00_SDRQ00=20170503, BM_YGBM00_SDSJ00=14:29:06, BM_YGBM00_SDYY00=登陆密码错误, BM_YGBM00_MMQRRQ=20160628, BM_YGBM00_DH0000=null, BM_BMBM00_BMBH00=2112, BM_BMBM00_BH0000=020102, BM_BMBM00_FLAG00=1, BM_BMBM00_BMMC00=收费处, BM_BMBM00_PYSM00=sfc, BM_BMBM00_WBSM00=nxt, BM_BMBM00_BMXZ00=4, BM_BMBM00_FYBZ00=0, BM_BMBM00_SYCW00=0, BM_BMBM00_YJXX00=0, BM_BMBM00_CKXX00=0, BM_BMBM00_JZXX00=0, BM_BMBM00_CZBZ00=1, BM_BMBM00_YYID00=220007, BM_BMBM00_JKBH01=20102, BM_BMBM00_KSDH00=null, BM_BMBM00_XZGHLB=null, BM_BMBM00_ZXWXTS=null, BM_BMBM00_PXXH00=101, BM_BMBM00_SFICU0=0, BM_BMBM00_KFCW00=0, BM_BMBM00_SBKSID=null, BM_BMBM00_QFSX00=0, BM_BMBM00_CHQZ00=null, BM_BMBM00_ZJFZ00=0, BM_YGBM00_YGBH00=1057, BM_YGBM00_YSFLBH=1, BM_YGBM00_WDWBH0=null, BM_YGBM00_SGSRZD=1, BM_YGBM00_GZDJ00=1, BM_YGBM00_MZDJ00=3, BM_YGBM00_DPDJ00=3, BM_YGBM00_SJDJ00=1, BM_YGBM00_KSSJB0=1, BM_YGBM00_CFJB00=5}
+
+
+
+yyid:医院Id

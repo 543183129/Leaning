@@ -1,0 +1,12 @@
+1.登陆 
+	mysql -u root -p
+		输入密码:jf170511
+2.显示数据库
+	show databases;
+3.使用数据库
+	use test;
+4.显示表
+	show tables;
+5.操作
+	select ...
+

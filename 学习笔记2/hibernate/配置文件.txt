@@ -1,0 +1,31 @@
+1.property
+	1.name中hibernate可写可不写
+	2.按作用可分为3大类
+		1.数据库的信息
+			方言，url,用户名，密码，驱动器
+		2.导入映射文件
+			<mapping ...> 如果在程序中用resource,在磁盘中用file
+		3.其他配置
+			<property ..>
+				show_sql：显示sql语句
+				format_sql：格式化slq语句
+				hbm2ddl.auto：create：自动生成表结构
+					create:先删除，在创建
+					update:如果不存在就创建，不一样就跟新。
+					create-drop:初始化时候创建表，sessionFactory执行Close()就删除表
+					validate:验证表结构是否一致，如果不一致，就抛出异常
+
+
+
+工具类:
+	1.根据配置生成表结构-安装的时候可以用
+		1.使用hbm2ddl.auto
+		2.使用SchemaExport
+			Conguration cfg=new Configuration().configure();
+			SchemaExport exoport=new SchemaExport(cfg);
+			//第一个参数：是否在控制台打印数据
+			//第二个参数: 数据库中是否执行，falSe：不执行
+			export.create(true,true);
+
+执行sql的脚本文件
+	source C:/s.sql

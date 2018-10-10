@@ -1,0 +1,18 @@
+Checkstyle:编码规范工具
+
+
+
+1.return 返回值处理
+	A.
+		if(exception){
+			return true
+		}else{					===============>	return exception;
+			return false
+		}
+	B.
+		if(exception){
+			return true			===============>	return exception ? true : false;
+		}
+		return false;
+
+2.

@@ -1,0 +1,37 @@
+1.spring框架=》7个模块组成
+	1.Spring Core
+		核心容器提供 Spring 框架的基本功能。核心容器的主要组件是 BeanFactory
+			BeanFactory 使用控制反转（IOC） 模式将应用程序的配置和依赖性规范与实际的应用程序代码分开。
+	6.Spring Context
+		Spring 上下文是一个配置文件，向 Spring 框架提供上下文信息。
+		它构建在BeanFactory之上，外增加了国际化和资源访问等功能。
+	2.Spring Aop
+		提供面向切面的功能
+	3.Spring ORM
+		Spring 框架插入了若干个 ORM 框架，从而提供了 ORM 的对象关系工具，其中包括 JDO、Hibernate 和 iBatis SQL Map。所有这些都遵从 Spring 的通用事务和 DAO 异常层次结构。
+	4.Spring DAO
+		提供了一个简单有效的JDBC应用
+	5.SPring Web
+		Web 上下文模块建立在应用程序上下文模块之上，为基于 Web 的应用程序提供了上下文。所以，Spring 框架支持与 Jakarta Struts 的集成。Web 模块还简化了处理多部分请求以及将请求参数绑定到域对象的工作。
+	7.Spring Web MVC
+
+
+
+2.spring 容器           ===========>类型为ApplicationContext
+	-管理bean对象
+	1.ApplicationContext 继承于 BeanFactory(负责配置，创建，管理bean)
+	2.实例化:ApplicationContext conf = new ClassPathXmlApplicationContext(conf);
+	3.调用:getBean("标识符");
+	4.bean的作用域			=》
+	5.bean的生命周期		=》
+
+3.容器的IOC：
+	1.全称:控制反转
+	2.对象的获取方式发生了反转，由最初的new 对象方式，转变成由第三方框架来创建和注入(DI);
+	3.第三方框架创建:通过配置的方式指定注入哪一个具体实现，从而降低对象的耦合度
+	4.实现方式:DI的方式（依赖注入）
+	5.DI的2种注入方式:Setting注入和构造器注入
+	6.减少注入配置的方法：	自动装配(autowire)
+
+4.基于注解的扫描
+	

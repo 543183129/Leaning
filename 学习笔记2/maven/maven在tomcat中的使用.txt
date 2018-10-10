@@ -1,0 +1,7 @@
+1.当程序是maven，并且在tomcat 中运行
+   1.在tomcat 中的webapp下面的lib 中没有相关的包
+      或者程序运行起立的时候一直包缺失jar 的包
+
+    解决办法：
+       properties=>myeclipse=>Deployment assembly 中添加 mavendepency 到web-info 下面
+       即添加组件

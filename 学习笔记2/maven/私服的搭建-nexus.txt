@@ -1,0 +1,40 @@
+1.下载nexus
+	https://www.sonatype.com/download-oss-sonatype
+2.打开nexus-2.2-01-bundle\nexus-2.2-01\bin\jsw\windows-x86-32
+	找到对应的console-nexus.bat文件。运行
+	修改对应的端口:\nexus-2.2-01-bundle\nexus-2.2-01\conf
+		application-port:默认为8081
+3.访问:	http://127.0.0.1:8081/nexus/
+	登录:admin	admin123
+4.设置权限
+	Security/user
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iEYEABECAAYFAlqEm+IACgkQA3TPLo3Rvf17EACeOOHTeij/Zhp2pnev6eYqpiUP
+UsMAn1n/jsUfb78YqOBaxlWmnP8XV3G6
+=cKfv
+-----END PGP SIGNATURE-----

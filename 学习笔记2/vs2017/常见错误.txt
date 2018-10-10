@@ -1,0 +1,2 @@
+1.提示"oracle client 64位在32位中"
+   IIS设置32位为false

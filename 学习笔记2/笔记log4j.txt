@@ -1,0 +1,8 @@
+1.log4j有两种配置文件，一种为properties文件，另一种为xml文件
+	1.	使用properties文件日志时，如果我们这里设置log的级别为info的话，那么所有的error和warn级别的日志都会输出到INFO级别的日志中，一个文件中可能有info级别的，error级别的，warn级别的，里面还是很混乱的，很难快速查找定位对应级别的日志。
+
+		log4j提出了一个方案就是使用xml配置文件起配置log4j这样就可以使用不同的log4j级别输出不同的文件中。
+	2.properties:不支持复杂过滤器filter
+		xml：	支持复杂过滤器和Log4j的新特性
+	推荐使用log4j.xml文件
+2.

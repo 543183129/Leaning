@@ -1,0 +1,26 @@
+
+命名：jQuery插件的文件名推荐命名为jquery.[插件名].js
+1.无参
+	(function($){
+            $.fn.extend({
+                myPlugName:function(){         //插件的名字
+                    $(this).click(function(){
+                       // alert($(this).val());    
+                    });    
+                }
+            });    
+        })(jQuery);
+       使用：  $("#btn").myPlugName();
+2.带参数
+	(function($){
+            $.fn.hilight=function(options){
+                var defaults={
+                    foreground:'red',
+                    background:'yellow'    
+                };
+                var opts = $.extend(defaults,options);
+                $(this).css("background-color",opts.background);
+                $(this).css("color",opts.foreground);
+            };
+        })(jQuery);
+      使用方式:$("#myDiv").hilight({foreground:'blue'});

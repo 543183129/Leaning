@@ -1,0 +1,77 @@
+	语法：
+		create or replace procedure 存储过程名（
+			param1 in type，
+			param2 out type
+		）
+		as
+			变量1 类型（值范围）;
+			变量2 类型（值范围）;
+		Begin
+		    Select count(*) into 变量1 from 表A where列名=param1；
+		    If (判断条件) then
+		       Select 列名 into 变量2 from 表A where列名=param1；
+		       Dbms_output。Put_line(‘打印信息’);
+		    Elsif (判断条件) then
+		       Dbms_output。Put_line(‘打印信息’);
+		    Else
+		       Raise 异常名（NO_DATA_FOUND）;
+		    End if;
+		Exception
+		    When others then
+		       Rollback;
+		End;
+1，  存储过程参数不带取值范围，in表示传入，out表示输出
+2，  变量带取值范围，后面接分号
+3，  在判断语句前最好先用count（*）函数判断是否存在该条操作记录
+4，  用select 。。。into。。。给变量赋值
+5，  在代码中抛异常用 raise+异常名
+
+while 循环
+	WHILE V_TEST=1 LOOP
+		  BEGIN
+			XXXX
+		  END;
+	END LOOP;
+变量赋值
+    V_TEST := 123;
+用for in 使用cursor
+	
+	//声明游标
+  	CURSOR cur IS SELECT * FROM xxx;
+	BEGIN
+		//For 循环游标=》循环游标隐式打开游标，自动滚动获取一条记录，并自动创建临时记录类型变量存储记录。
+		//处理完后自动关闭游标
+	 	FOR cur_result in cur LOOP
+	  		BEGIN
+	   			V_SUM :=cur_result.列名1+cur_result.列名2
+	 	 	END;
+	 	END LOOP;
+	END;
+带参数的cursor
+	/**声明游标
+  	CURSOR C_USER(C_ID NUMBER) IS SELECT NAME FROM USER WHERE TYPEID=C_ID;
+  	//打开游标=》指向结果集头
+  	OPEN C_USER(变量值);
+  		//Loop循环游标
+	 	LOOP
+	 		//获取记录fetch XX into yy
+	 		FETCH C_USER INTO V_NAME;
+	 		EXIT FETCH C_USER%NOTFOUND;
+	    	do something
+	  	END LOOP;
+	//关闭游标
+    CLOSE C_USER;
+
+
+注：
+	Cursor：游标
+		类型：
+			静态游标
+				显示游标
+				隐士游标
+			ref游标：动态关联结果集的临时对象。
+		状态:
+			%Found ：Fetch语句（获取记录）执行情况 True or False。
+			%NotFound : 最后一条记录是否提取出 True or False。
+			%ISOpen ： 游标是否打开True or False。
+			%RowCount ：游标当前提取的行数 。

@@ -1,0 +1,179 @@
+1.oid:
+	object identifier 对象标识符
+2.映射文件：hbm.xml
+	映射配置：property
+		name: 		必须要有
+		type:		如果不写，Hibernate会自动检测。可以写java中类的全名或是写hibernate类型。
+		column:		表中的列名，默认为属性
+		length：	长度，varchar,默认255
+		not-null:	非空约束，默认为false
+	设置类的包名
+		<hibernate-mapping> 中属性package，
+			优点:如果有多个类的话，可以避免为每个类提供完整的类名
+	sql的引用表示符
+		如果属性中的有一个字段代表一大段的文字说明(String)
+		那么在配置文件中可以设置
+			<!-- 指定使用text类型时，最好再指定length，以确定生成的SQL类型是能够存放指定数量的字符的。 -->
+        	<property name="desc" type="text" length="5000" column="`desc`"/>
+        使用条件:如果数据库表名或列名包含特殊字符
+
+    映射集合
+    	List集合
+    		1.集合的属性只能以接口声明，当持久化某个实例时，Hibernate会自动把程序中的集合实现类替换成Hibernate自己的集			合实现类
+    			eg：private List<String> addressList = new ArrayList<String>(); 
+    		2.	list元素要求用list-index的子元素来映射有序集合的次序列(id)
+    			集合的属性的值会存放在另外的表中，须以外键关联，用Key元素来映射外键列。
+    			当集合元素是基本数据类型及其包装类，字符串或日期类型时使用 element来映射集合属性
+    			eg：
+    				<list name="addressList" table="user_addressList">
+            			<key column="userId"></key>
+            			<list-index column="idx"></list-index>
+            			<element type="string" column="address"></element>
+       				 </list>
+
+       	数组：
+       		与List集合差不多，用<array>来完成映射
+       	Map映射
+       		1.Map不仅需要映射属性值，还需要映射属性Key。
+       		2.Hibnernate将以外键列和Key列作为联合主键。
+       		3.使用<map>元素映射，需要key和map_key两个子元素
+       			key子元素用于映射外键列
+       			map-key子元素则用于映射Map集合的Key。
+       			map-key和element元素都必须确定type属性。
+	       		eg：
+			        <map name="addressMap" table="user_addressMap">
+			            <key column="userId"></key>
+			            <map-key type="string" column="key_"></map-key>
+			            <element type="string" column="address"></element>
+			        </map>
+		Bag？？？？？？？？？？？？？？
+
+		关键点:基本数据类型
+
+
+		排序
+
+
+		关联的方向:从左到右
+		一对多的关系映射
+			在一的一方
+				<list name="scoreList" table="tb_Score">
+					<key column="stuId"></key>
+					<list-index column="scoreId"></list-index>
+					<one-to-many  class="Score"/>
+				</list>
+			在多的一方
+				<many-to-one name="student" column="stuId" class="Student"/> 
+
+			推荐：用多的一方来保存数据，减少数据库维护的次数
+					先保存一的一方，再保存多的一方，这样关系会自动维护（配置映射一定要正确）  
+
+				  用一的一方来保存数据，失败:
+				  		Duplicate entry '1' for key 'PRIMARY' =>主键没有设置清楚
+
+			单向关联
+				业务逻辑上来分
+					1:n=>居住地址和人
+					需求:一个人来查找其居住地址，而不需要用一个地址来查找其居住上的人
+						维护关系:在多的一方，即人的一方   <many-to-one>
+					n:1=>人和电话卡
+					需求:一个人可以查询到其电话号码。
+						维护关系:在少的一方，即人的一方   <one-to-many>
+			双向关联
+					1:n=>居住地址和人
+					需求:一个人来查找其居住地址，也可以根据地址来查找其上对应的居住人
+						维护关系：多的一方 		<many-to-one name="address"
+       												 column="addressId"
+        										not-null="true"/>
+
+								  少的一方		<set name="people" inverse="true">
+								  					<key column="addressId"/>
+        											<one-to-many class="Person"/>
+   												 </set>
+
+
+		多对多的关系映射
+			两边都是
+				<set name="stus" table="stu_course">
+					<key column="cid"></key>
+					<many-to-many class="StudentInfo" column="sid"></many-to-many>
+				</set>
+
+
+
+		一对一的关系映射
+			4种类型
+				单项1v1主键关联
+					同时使用一个主键，表明他们的关系是一一对应的关系，仅通过表的主键来进行关联
+				单项1v1外键关联
+				双向1v1主键关联
+				双向1v1外键关联
+					外键关联，本来是用于多对一的配置，但是如果加上唯一的限制之后，也可以用来表示一对一关
+						联关系。
+					
+
+		继承:鉴别器
+			单表继承映射
+				<!-- 指明鉴别器 -->
+				<discriminator column="type" type="string"></discriminator>
+		<!-- 此标签是表明子类的列 name:子类的类名 discriminator-value="stu"是由hibernate维护Student的type的值   -->
+			    <subclass name="Student" discriminator-value="stu">
+			        <property name="homework"></property>
+			    </subclass>
+			    <subclass name="Teacher" discriminator-value="tea">
+			        <property name="salary"></property>
+			    </subclass>
+
+
+	关联标记
+		cascade:级联:
+			两个对象之间的操作联动关系，对一个对象执行了操作之后，对其指定的级联对象也需要执行相同的操作
+			属性
+				all-代表在所有的情况下都执行级联操作
+				none-在所有情况下都不执行级联操作
+				save-update-在保存和更新的时候执行级联操作
+				delete-在删除的时候执行级联操作
+			使用
+				多对一和多对多的时候不使用
+				一对一和一对多的时候使用
+		inverse:默认为false，表示本方维护关联关系。
+			控制反转
+			用途:主要用在一对多，多对对双向关联上
+				false：不反转，自己负责
+				true：	反转   对方负责
+
+
+
+
+			
+
+
+
+bug：
+	多对一的关系中
+	1.  object references an unsaved transient instance - save the transient instance before flushing: XXX
+		原因:
+			1.执行保存的时候不能只保存一个类，而是两个类都要执行保存的操作
+			2.先执行一的插入，在执行多的插入
+	2.一对多的多条插入的时候，多条插入成功，但是单条插入失败，此时事务回滚
+
+	3.Table 'test.tb_studentinfo' doesn't exist
+		1.在配置文件中定义的自动增长的主键为<generator class="native" />
+			但是却使用String 的类型
+			解决办法： 将类中的属性类型定义为Integer
+		2.<property name="hibernate.hbm2ddl.auto">create</property>没有配置
+	4.使用继承关系种
+		 parsing XML: XML InputStream(20) 元素类型为 "class" 的内容必须匹配 "
+		 原因:
+	5.
+		<property name="hibernate.current_session_context_class">thread</property>
+		spring默认以线程方式创建，配了反而有问题-
+
+
+
+备注
+	
+	初始化集合的好处
+		添加对象的时候就可以不用在创建set<集合>，可以直接user.getAddressSet().add("XXX");
+
+

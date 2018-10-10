@@ -1,0 +1,20 @@
+1.创建表空间
+	create tablespace TS_YY   
+	datafile 'F:\common\local_oracle\workspace/TS_YY.dbf'   
+	size 100M   
+	autoextend on next 5M maxsize 3000M; 
+
+2.创建用户
+	owner=(SD_JY,SD_GY,SD_ZS,SD_TJ,SD_SB,SD_ZY,SD_MZ,SD_YK,SD_SF,SD_YF,SD_YJ,SD_BQ,SD_HOSPITAL,SD_JYJK,SD_WLPT,SD_PT,SD_WZ,SST);
+3.创建权限
+4.表空间限额
+	alter user sd_hospital quota unlimited on AUTOTEST
+	alter user SD_MZ quota unlimited on AUTOTEST
+	alter user SD_SF quota unlimited on AUTOTEST
+	alter user SD_ZS quota unlimited on AUTOTEST
+	alter user SD_PT quota unlimited on AUTOTEST
+	alter user sd_hospital quota unlimited on AUTOTEST
+
+
+5.导出的时候视图不成功
+	

@@ -1,0 +1,7 @@
+1.启动tomcat的时候包alibaba的错误
+	1.原因:在tomcat的webapp下面的文件没有清理清楚
+2.tomcat 启动的时候报
+		 Unable to process Jar entry
+	原因:tomcat 和mybatis的版本不兼容
+			apache-tomcat-7.0.55   不支持   mybatis 3.3.1
+	解决办法：apache-tomcat-7.0.55=====》apache-tomcat-7.0.85-windows-x86

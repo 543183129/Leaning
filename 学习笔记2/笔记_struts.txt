@@ -1,0 +1,13 @@
+1. 使用动态方法
+	在struts2.5 中需要如下的配置
+	1):
+		<!-- 打开动态方法调用功能 -->
+		<constant name="struts.enable.DynamicMethodInvocation" value="true"></constant>
+	2):  在package 中
+		<!--struts2.5 为了增加安全性=====》动态调用 -->
+		<global-allowed-methods>regex:.*</global-allowed-methods>
+2. 前端使用对象作为参数
+	DomainModel
+	<constant name="struts.devMode" value="false" />
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+	<constant name="struts.i18n.encoding" value="utf-8"></constant>

@@ -1,0 +1,25 @@
+1.跨浏览器 提供丰富的ui
+
+
+
+
+2.命名规则
+	类:首字母大写
+	常量:全部大写
+	变量/方法/属性：首字母小写
+
+3.架构：
+	mvc/mvvm架构
+
+4.程序
+	<script type="text/javascript">
+         Ext.onReady(function() {
+	        Ext.create('Ext.Panel', {
+	            renderTo: 'helloWorldPanel',
+	            height: 200,
+	            width: 600,
+	            title: 'Hello world',
+	            html: 'First Ext JS Hello World Program'
+	        });
+         });
+      </script>

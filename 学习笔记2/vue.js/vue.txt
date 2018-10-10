@@ -1,0 +1,123 @@
+
+构建项目
+	vue init webpack my-project
+	安装依赖
+		cd my-project：到具体的项目中
+		cnpm install：会多出一个node_modules
+运行vue
+	1.cd E:\vue\my-project
+	2.npm run dev
+
+
+1.操作dom：
+	Jquery:手动操作DOM
+	Vue:	数据驱动
+2.MNVVM模式：Model-view-viewModel
+	viewModel是vue的核心》实例
+3.双向绑定
+	DOM Listeners：检测DOM元素中的变化,有变化则更改 Model 中的数据
+	Data Bindings： 当我们更新Model中的数据时，Data Bindings工具会帮我们更新页面中的DOM元素。
+
+3.hellow的实例
+	view：：
+		<div id="app">
+			{{messageShow}}
+		</div>
+	//  
+	model :
+		var Message={
+			messageShow:'hahah';
+		}
+	viewModel ： 创建一个 Vue 实例或 "ViewModel",它连接 View 与 Model
+		new Vue({
+			e1:'#app',
+			data:Message
+		})
+4.常用指令
+	v-text:		=>innerHtml
+	v-if指令：	根据条件来插入或删除元素											插入或删除
+	v-show指令：为元素设置css的styles属性， 元素始终会被渲染到HTML:   好像不支持	显示或隐藏
+	v-else指令：紧紧的跟在v-if或者v-show 的指令后面
+	v-for指令：	基于一个数组渲染一个列表 语法：	v-for="item in items"
+	v-bind指令:	html元素的特性（attr）     eg: 	v-bind:class="exp"      中间用:		缩写：：
+				v-bind:value='xxx'  给value赋值   =》
+				单向的，不会影响mvvm
+	v-model : 	双向数据绑定	
+	v-on指令:	监听事件					 	v-on:click="doSomething"         	缩写：v-on=》@
+
+	
+
+	注意点：
+		1)可以直接访问data 中的属性
+			每个Vue实例都会代理其选项对象里的data属性
+
+export default{
+	data(){} //data是一个函数，返回一个对象
+	method:  //一个对象
+}
+
+
+
+class 和 v-bind 结合使用
+	1.需要根据可变的表达式的结果来给class赋值就需要用到
+		v-bind:class="xxx"   xxx=》表达式
+		单个		v-bind:class="isred?red:greed"
+		多个样式 :  class={'red':true,'big':isbig}
+		复杂情况：根据不同的分数显示不同的样式	     =》清单对象
+											清单对象：匹配成绩和样式  当前的成绩  ==》返回字符串做样式名
+												value					key
+			<li v-for="stu in stus" :class="{"A":red,"B":greed}[stu.score]">
+				{{stu.name}}
+			</li>
+v-on和method的使用
+	v-on:click="change"    =>简写 @click="change"
+		1.如果没有参数，可以省略()
+		2.this 的使用
+			a:在<template>中使用，则不需要this
+			b:在script 中使用，则需要用到this
+
+v-for：的使用
+	操作数组：(item,index)                 删除 this.xxx.splice(index,1)
+	操作对象:（value,key,index)
+	:key="index":   
+		作用:体现元素与页面之间的关系，当视图删除元素的时候是单个的删除，而不是整个替换。
+			必须要设置，并且性能好
+(
+
+1.组件
+
+2.全局组件
+	import '子组件' from './xxx/yyy'
+	1.声明
+	vue.component("组键名","组键对象")
+3.父子组件的参数传递
+	a:父传子
+		1.在父组件中定义 :text="tt" tt是data中的属性
+		2.在子组件中的export default{props:['text']}
+			使用{{text}}
+			js中获取传过来的参数：this.text
+	b:子传父=》类似子给父打电话
+		原理:1.父先聆听
+			 2.父子用同一条电话线
+			 3.当子有需要的时候才拨打电话
+		1.定义一个connect.js =》连接器
+			import Vue from 'Vue'
+			var connector=new Vue();
+			export default connector;
+		2.在父中
+			引入connect.js    import connector from './connect.js'
+				connect.$on('phone',function(msg){
+					//处理
+				})
+		3.在子中
+			引入connect.js    import connector from './connect.js'
+			发射信号		  connect.emit('phone','开始打电话');
+
+
+
+
+api文档中的内容
+	1.全局：Vue.
+	2.实例：this或者new Vue()
+	3.选项: option()=>new Vue({可选参数})/export default({XXX})
+

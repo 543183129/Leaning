@@ -1,0 +1,92 @@
+1.在web.config中的配置
+	//添加监听=》ContextLoaderListener
+	//作用:自动装载ApplicationContext的配置信息，默认参数:WEB-INF/application.xml
+	<listener>  
+   		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>  
+	</listener> 
+	//contextConfigLocation:修改配置文件的路径
+	<context-param>  
+   		<param-name>contextConfigLocation</param-name>  
+    	<param-value>classpath:applicationContext.xml</param-value>  
+	</context-param> 
+
+
+
+2.配置事务
+	1.注解式配置
+		{{A}}
+			<!--spring和mybatis-->
+			<bean id="transactionManager"  
+	  			 	 class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  
+	   		 	<property name="dataSource" ref="dataSource" />  
+			</bean>  
+			<!--使用注释事务 -->  
+			<tx:annotation-driven  transaction-manager="transactionManager" />  
+		{{B}}
+			<!-- spring+hibernate -->  
+			<bean id="transactionManager" 	class="org.springframework.orm.hibernate3.HibernateTransactionManager">  
+			    <property name="sessionFactory" ref="sessionFactory" />  
+			</bean>  
+			  
+			<!-- 使用annotation定义事务 -->  
+			<tx:annotation-driven  transaction-manager="transactionManager"   proxy-target-class="true" />  
+		{{C}}
+			使用@Transactional   =>位置式在类上面或者方法的上面
+								 =>对public的方法起作用
+	2.使用aop的方式实现事务的配置
+		<!-- 定义事务管理器 -->  
+	    <bean id="transactionManager"  
+	        class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  
+	        <property name="dataSource" ref="dataSource" />  
+	    </bean>  
+    	<!-- 下面使用aop切面的方式来实现 -->  
+	    <tx:advice id="TestAdvice" transaction-manager="transactionManager">  
+	        <!--配置事务传播性，隔离级别以及超时回滚等问题 -->  
+	        <tx:attributes>  
+	            <tx:method name="save*" propagation="REQUIRED" />  
+	            <tx:method name="del*" propagation="REQUIRED" />  
+	            <tx:method name="update*" propagation="REQUIRED" />  
+	            <tx:method name="add*" propagation="REQUIRED" />  
+	            <tx:method name="*" rollback-for="Exception" />  
+	        </tx:attributes>  
+	    </tx:advice>  
+	    <aop:config>  
+	        <!--配置事务切点 -->  
+	        <aop:pointcut id="services"  
+	            expression="execution(* com.website.service.*.*(..))" />  
+	        <aop:advisor pointcut-ref="services" advice-ref="TestAdvice" />  
+	    </aop:config> 
+
+
+	   
+	    propagation="REQUIRED"代表支持当前事务，如果当前没有事务，就新建一个事务
+	    			可选:REQUIRED,SUPPORTS,MANDATORY,REQUIRES_NEW,NOT_SUPPORTED,NEVER,NESTED
+	    isolation:	事务的隔离级别
+	    timeout：	超时时间
+	    read-only：	是否只读
+	    rollback-for="Exception"：运行时异常会回滚，其他的异常不会回滚  =》触发回滚
+	    no-rollback-for：不被触发进行回滚的
+
+
+	    //传播特性
+	    1. PROPAGATION_REQUIRED: 如果存在一个事务，则支持当前事务。如果没有事务则开启  
+		2. PROPAGATION_SUPPORTS: 如果存在一个事务，支持当前事务。如果没有事务，则非事务的执行  
+		3. PROPAGATION_MANDATORY: 如果已经存在一个事务，支持当前事务。如果没有一个活动的事务，则抛出异常。  
+		4. PROPAGATION_REQUIRES_NEW: 总是开启一个新的事务。如果一个事务已经存在，则将这个存在的事务挂起。  
+		5. PROPAGATION_NOT_SUPPORTED: 总是非事务地执行，并挂起任何存在的事务。  
+		6. PROPAGATION_NEVER: 总是非事务地执行，如果存在一个活动事务，则抛出异常  
+		7. PROPAGATION_NESTED：如果一个活动的事务存在，则运行在一个嵌套的事务中. 如果没有活动事务,   
+		      则按TransactionDefinition.PROPAGATION_REQUIRED 属性执行  
+
+		//隔离级别
+		1. ISOLATION_DEFAULT： 这是一个PlatfromTransactionManager默认的隔离级别，使用数据库默认的事务隔离
+			级别,另外四个与JDBC的隔离级别相对应  
+		2. ISOLATION_READ_UNCOMMITTED： 这是事务最低的隔离级别，它充许令外一个事务可以看到这个事务未提交的
+			数据,这种隔离级别会产生脏读，不可重复读和幻像读。  
+		3. ISOLATION_READ_COMMITTED：
+		 	保证一个事务修改的数据提交后才能被另外一个事务读取。另外一个事务不能读取该事务未提交的数据  
+		4. ISOLATION_REPEATABLE_READ： 这种事务隔离级别可以防止脏读，不可重复读。但是可能出现幻像读,它除了
+			保证一个事务不能读取另一个事务未提交的数据外，还保证了避免下面的情况产生(不可重复读)。  
+		5. ISOLATION_SERIALIZABLE 这是花费最高代价但是最可靠的事务隔离级别。事务被处理为顺序执行,除了防止
+			脏读，不可重复读外，还避免了幻像读。   
+

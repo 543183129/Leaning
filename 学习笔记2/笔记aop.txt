@@ -1,0 +1,36 @@
+aop的4中使用方式
+	1.基于代理的aop
+		注意点: 获取的对象为代理的对象，而不是某个实现类
+	2.自动代理
+	3.@Aspect注入
+		注意点:	目标类中的方法不能有参数
+	4.注意点:	目标类中的方法不能有参数
+				切点的注意事项：
+					1.格式正确   比如（）
+	你妹的坑
+
+	@Aspect作用于action，致使action中的@Autowired注入为null的解决方案
+	1、去掉@Autowired，改用set,get注入
+	2、将action纳入spring的ioc管理
+	3、修改Struts.xml文件的属性
+
+
+
+	1.eg：
+	<!-- 通知 -->
+	<bean id="logHelp" class="com.great.managersystem.deptemp.aop.LogHelp"></bean>
+	<!-- 切点 -->
+	<bean id="LogPointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut">
+		<property name="pattern" value=".*t"></property>
+	</bean>
+
+	<!-- 切面 -->
+	<bean id="LogAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor">
+		<property name="advice" ref="logHelp"></property>
+		<property name="pointcut" ref="LogPointcut"></property>
+	</bean>
+	<!-- 代理模式 -->
+	<bean id="logProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="target" ref="empServiceImpl"></property>
+		<property name="interceptorNames" value="LogAdvisor"></property>
+	</bean>

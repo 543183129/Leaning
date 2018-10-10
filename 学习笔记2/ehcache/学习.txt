@@ -1,0 +1,40 @@
+1.创建一个配置文件 ehcache.xml
+	<?xml version="1.0" encoding="UTF-8"?>
+	<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd">
+
+	  <!-- 磁盘缓存位置 -->
+	  <diskStore path="java.io.tmpdir/ehcache"/>
+
+	  <!-- 默认缓存 -->
+	  <defaultCache
+	          maxEntriesLocalHeap="10000"
+	          eternal="false"
+	          timeToIdleSeconds="120"
+	          timeToLiveSeconds="120"
+	          maxEntriesLocalDisk="10000000"
+	          diskExpiryThreadIntervalSeconds="120"
+	          memoryStoreEvictionPolicy="LRU">
+	    <persistence strategy="localTempSwap"/>
+	  </defaultCache>
+
+	  <!-- helloworld缓存 -->
+	  <cache name="HelloWorldCache"
+	         maxElementsInMemory="1000"
+	         eternal="false"
+	         timeToIdleSeconds="5"
+	         timeToLiveSeconds="5"
+	         overflowToDisk="false"
+	         memoryStoreEvictionPolicy="LRU"/>
+	</ehcache>
+	参数的意义:
+		name:					缓存的名称，通过名称获取到对应的cache的对象
+		maxElementsInMemory：	内存中允许存储的最大的元素个数，0代表无限个
+		maxEntriesLocalDisk:	当内存中对象数量达到maxElementsInMemory时，Ehcache将会对象写到磁盘中。
+		maxElementsOnDisk：		磁盘中的最大缓存个数
+		eternal：				设置缓存中的对象是否为永久
+		timeToIdleSeconds:		设置对象在失效前的允许闲置时间（单位：秒）
+		timeToLiveSeconds:		缓存数据的生存时间（TTL）
+		overflowToDisk:			内存不足时，是否启用磁盘缓存
+		diskSpoolBufferSizeMB:	设置缓存区的大小，默认为30m,每个cache应该都有自己的缓冲区
+		

@@ -1,0 +1,23 @@
+1.创建index.html 设置<div id="app"></div>
+2.创建main.js文件
+	1.引入vue
+	import Vue from 'vue'
+	2.引入app.vue,用他的内容来替换id="app"的内容
+	import App from './app.vue'
+	3.构建vue的实例
+	new Vue({
+		e1:"#app",
+		render:function(c){
+			return c(App);
+		}
+	})
+3.编写app.vue
+	<template>
+		<!--只能有一个根节点-->
+	</template>
+	<script>
+
+	</script>
+	<style>
+
+	</style>

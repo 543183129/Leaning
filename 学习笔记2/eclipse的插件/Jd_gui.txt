@@ -1,0 +1,15 @@
+1.作用:查看源代码
+2.下载位置:
+	http://jd.benow.ca/
+	分类:
+		window 界面:JD-GUI
+		eclipse的插件:JD-Eclipse
+		idea的插件:JD-IntelliJ
+3.安装/使用方式:	
+	地址:https://blog.csdn.net/u011242657/article/details/40324281
+	eclipse插件jd-eclipse的使用:
+		1.下载
+		2.该地址下有在eclipse的安装教程
+		3.在eclipse中设置:
+			Window----->Preference--->General--->Editors---->File Associations
+				把class with resource的默认编辑器改成Jd-Class-File Viewer（如果不存在则添加）

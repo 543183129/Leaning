@@ -1,0 +1,11 @@
+1.org.springframework.beans.factory.BeanDefinitionStoreException: Unexpected exception parsing XML document from class path resource [Application.xml]; nested exception is java.lang.IllegalStateException: Context namespace element 'component-scan' and its parser class [org.springframework.context.annotation.ComponentScanBeanDefinitionParser] are only available on JDK 1.5 and higher
+	
+	解决办法:将jdk1.8的版本换成jdk1.6的版本
+	猜测:junit 冲突了
+		原因:spring2.5.6会有一个验证jdk版本的过程，对于jdk1.8会默认设置为低于jdk1.5的版本
+
+
+1.同步过来，相同的功能
+2.地址不需要那么长，只要医生代码就可以
+3.不需要登陆（好了）
+4.查询不需要那么多的条件	

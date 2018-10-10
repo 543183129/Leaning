@@ -1,0 +1,20 @@
+         VisualSVN server 服务端和 TortoiseSVN客户端搭配使用
+ 		学习地址:http://www.cnblogs.com/langtianya/p/4173645.html
+1.VisualSVN server
+	下载地址:https://www.visualsvn.com/downloads/
+	 下载版本:VisualSVN server
+	 版本号:3.6.4  包含subvision 1.9.7 的命令行工具
+2.TortoiseSVN客户端
+	下载地址:http://tortoisesvn.net/downloads.html
+	版本号:1.9.7.27907
+	语言包:1.9.7.27907
+3.myeclipse 的svn
+
+
+
+
+
+
+4.项目管理
+	
+

@@ -1,0 +1,2 @@
+1.app 文件夹:保存Ext所编写的所有js文件
+2.application.js:Ext.js的入口程序

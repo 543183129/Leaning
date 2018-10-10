@@ -1,0 +1,5 @@
+1.Spring 自动扫描 识别不到@Service,等的注解
+	eclipse自带的jar打包程序 默认打包的时候有个选项<Add directory entries>没有勾选,
+	解决办法:
+		导出一个项目工程（jar export），设置Option：Add directory entries
+			-也就是添加目录项

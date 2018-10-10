@@ -1,0 +1,120 @@
+1.下载:  使用maven下载
+	<!-- https://mvnrepository.com/artifact/com.github.pagehelper/pagehelper -->
+	<dependency>
+	    <groupId>com.github.pagehelper</groupId>
+	    <artifactId>pagehelper</artifactId>
+	    <version>5.0.2</version>
+	</dependency>
+	获取到 pagehelper-5.0.2.jar  和  jsqlparser-0.9.5
+2.使用
+	在mybatis.xml 中添加插件
+	<plugins>
+		<plugin interceptor="com.github.pagehelper.PageInterceptor">
+	<!-- PageHelper插件4.0.0以后的版本支持自动识别使用的数据库，可以不用配置 -->
+			<!--<property name="dialect" value="oracle" />-->
+			<!-- 该参数默认为false -->
+			<!-- 设置为true时，会将RowBounds第一个参数offset当成pageNum页码使用 -->
+			<!-- 和startPage中的pageNum效果一样 -->
+			<property name="offsetAsPageNum" value="true" />
+			<!-- 该参数默认为false -->
+			<!-- 设置为true时，使用RowBounds分页会进行count查询 -->
+			<property name="rowBoundsWithCount" value="true" />
+
+			<!-- 设置为true时，如果pageSize=0或者RowBounds.limit = 0就会查询出全部的结果 -->
+			<!-- （相当于没有执行分页查询，但是返回结果仍然是Page类型）
+			 <property name="pageSizeZero" value="true"/> -->
+
+			<!-- 3.3.0版本可用 - 分页参数合理化，默认false禁用 -->
+			<!-- 启用合理化时，如果pageNum<1会查询第一页，如果pageNum>pages会查询最后一页 -->
+			<!-- 禁用合理化时，如果pageNum<1或pageNum>pages会返回空数据 -->
+			<property name="reasonable" value="true" />
+			<!-- 3.5.0版本可用 - 为了支持startPage(Object params)方法 -->
+			<!-- 增加了一个`params`参数来配置参数映射，用于从Map或ServletRequest中取值 -->
+			<!-- 可以配置pageNum,pageSize,count,pageSizeZero,reasonable,不配置映射的用默认值 -->
+			<!-- 不理解该含义的前提下，不要随便复制该配置
+		    <property name="params" value="pageNum=start;pageSize=limit;"/> -->
+		</plugin>
+	</plugins>
+	注意:1.interceptor="com.github.pagehelper.PageInterceptor"
+		 2.PageHelper插件4.0.0以后的版本支持自动识别使用的数据库，可以不用配置
+3.新建PageBean<T>
+	public class PageBean<T> implements Serializable {
+	    private static final long serialVersionUID = 8656597559014685635L;
+	    private long total;        //总记录数
+	    private List<T> list;    //结果集
+	    private int pageNum;    // 第几页
+	    private int pageSize;    // 每页记录数
+	    private int pages;        // 总页数
+	    private int size;        // 当前页的数量 <= pageSize，该属性来自ArrayList的size属性
+	    
+	    /**
+	     * 包装Page对象，因为直接返回Page对象，在JSON处理以及其他情况下会被当成List来处理，
+	     * 而出现一些问题。
+	     * @param list          page结果
+	     * @param navigatePages 页码数量
+	     */
+	    public PageBean(List<T> list) {
+	        if (list instanceof Page) {
+	            Page<T> page = (Page<T>) list;
+	            this.pageNum = page.getPageNum();
+	            this.pageSize = page.getPageSize();
+	            this.total = page.getTotal();
+	            this.pages = page.getPages();
+	            this.list = page;
+	            this.size = page.size();
+	        }
+	    }
+
+	    public long getTotal() {
+	        return total;
+	    }
+
+	    public void setTotal(long total) {
+	        this.total = total;
+	    }
+
+	    public List<T> getList() {
+	        return list;
+	    }
+
+	    public void setList(List<T> list) {
+	        this.list = list;
+	    }
+
+	    public int getPageNum() {
+	        return pageNum;
+	    }
+
+	    public void setPageNum(int pageNum) {
+	        this.pageNum = pageNum;
+	    }
+
+	    public int getPageSize() {
+	        return pageSize;
+	    }
+
+	    public void setPageSize(int pageSize) {
+	        this.pageSize = pageSize;
+	    }
+
+	    public int getPages() {
+	        return pages;
+	    }
+
+	    public void setPages(int pages) {
+	        this.pages = pages;
+	    }
+
+	    public int getSize() {
+	        return size;
+	    }
+
+	    public void setSize(int size) {
+	        this.size = size;
+	    }
+    }
+4.使用
+    参数说明:1.当前页  2.每页多少条
+	PageHelper.startPage(PaginationContext.getPageNum(), PaginationContext.getPageSize());
+    List<User> list = this.userMapper.getUserByNoAndEmail(map);
+    return new PageBean<User>(list);

@@ -1,0 +1,7 @@
+1. 下载安装Sencha Cmd
+
+
+
+生成项目：sencha generate app -ext MyApp F:\常用软件\ext\workspace\demo
+启动: sencha web start
+编译：sencha app build

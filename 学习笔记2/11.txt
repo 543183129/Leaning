@@ -1,0 +1,36 @@
+1. 代码规则，注释（类，方法，属性）
+2. 功能异常（统一异常处理，友好的页面提示，案例：秒杀举例，权限管理）
+3. 用户体验 （静态文件优化，Nginx 动静分离，反向代理，页面模板化）
+4. 软件架构 （可维护性，可扩展性，高并发，前端 后端优化 ）
+
+
+
+传统项目架构：请求-》页面-》controller-》service-》dao-》数据库
+redis
+高并发 解决方案:请求->nginx(反向代理)->页面->接口层(缓存)->数据库(集群，主从，读写分离) MQ message queue
+
+一致性问题
+session一致性
+redis
+
+前后端分离
+ndoe.js vue.js fis3 freemarke
+
+
+dbcp < c3p0 <  druid
+
+jndi
+
+微服务，SOA,
+DUBBO/dubbox(当当),springboot springcloud
+
+rpc 远程过程调用协议
+
+webservie 查询天气
+
+单点故障
+服务治理
+
+token（令牌）
+http://localhost:8080/crm/getUser.do?userid=1&token=hfds78798321hn8cyu238hj9821u9883h8hf398y4
+http://localhost:8080/crm/getUser/1 restful 接口规范

@@ -1,0 +1,57 @@
+1.
+	OGNL=>Object Graph Navigation Language
+	中文:对象图导航语音
+	独立的开源组件
+2.
+	Struts2默认采用OGNL表达式访问Action的数据，通过
+	ValueStack用封装后的OGNL来访问Action。
+	valueStack:值堆栈
+3.标签
+	<s:property value="ognl">
+	原理:根据ognl表达式访问Action,并将取到的数据替换标签本身
+4.EL和OGNL
+	${user.userName}
+	<s:property value="user.userName">
+5.8中OGNL表达式
+	1.访问属性					<s:property value="属性"/>
+	2.访问实体对象				<s:property value="user.userName"/>
+	3.访问数组或集合的某元素	<s:property value="属性名[index]"/>
+													///易错点KEY=>keys
+	4.访问Map类型的属性值		<s:property value="属性名.keys"/>
+	5.运算						<s:property value="OGNL和运算"/>
+	6.方法						<s:property value="OGNL.方法"/>
+	7.创建临时的集合/map		<s:set var="l1" value="#{'1':'男','2':'女'}"/>
+		并返回输出于标签位置。 			<s:property value="#l1['1']"/>
+	9.调试标签					<s:debug/>
+	10.输出栈顶的内容			<s:property />
+6.valueStack作用   后进先出   栈顶开始
+	在struck2中,Action向页面传输数据的媒介，
+	分装Action中的数据。
+	并允许OGNL来对其进行访问
+
+	"#"
+
+
+7.
+	Context对象是一个Map类型的对象，我们使用OGNL访问它的方
+	式是固定的,即#key，返回的值是当前key在Map中对应的值。
+	map=>Context=>#key
+8.迭代集合
+	用法：<s:iterator value="users">
+	<s:property value="userName">
+	</s:iterator>
+	按数字迭代
+	<s:iterator value="empList" begin="from" end="to" var="k">
+	<s:property value="#k.xxx">
+	</s:iterator>
+9.UI标签
+<s:form action="" method="" theme="simple">
+</s:form>
+
+<s:checkbox name="OGNL" />
+	注意:取值要求是Boolean,设置checkbox是否勾选
+<s:radio name="sex" list="#{'M':'男', 'F':'女'}"/>    =》不懂
+
+
+
+SELECT * FROM (SELECT ROWNUM AS rowno, t.* from tbl_emp t    WHERE  emp_name like ?    )        where rowno between ? and     ?+?)

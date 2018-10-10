@@ -1,0 +1,32 @@
+注解处理器
+	1.AnnotatedElement=>注解处理器类库
+		AnnotatedElement:程序中可以接受注解的程序元素
+			是所有程序元素（Class、Method和Constructor）的父接口
+		Annotation接口:	程序元素前面的注解,所有Annotation类型的父接口
+	2.原理:通过反射获取某个类的AnnotatedElement的对象，调用该对象的4个方法来访问Annotation的信息;
+		注解的常用方法:			
+					getAnnotation(注解类)
+					getAnnotations()
+					isAnnotationPresent(注解类)   //Present:提出
+					getDeclaredAnnotation()
+
+	流程：
+		先通过一个类获取该类中的字段
+		Field[] fields=clazz.getDeclaredFields();
+
+
+
+
+
+1.	Class<T>			实例化中要换成具体的类			
+	Class<?>			通配泛型，?可以代表任何类型
+	<? extends T>		受限通配，表示T下的一个子类
+	<? super T>			下限通配，表示T的一个未知父类
+2.获取声明的字段 参数=>Class<?> clazz
+	field[] fs=clazz.getDeclaredFields();
+	获取字段的名称		fs.getName();
+	获取字段的注解值	注解类 注解类=(注解类)fs.getAnnotation(注解类)
+						注解类.方法();
+
+	
+

@@ -1,0 +1,72 @@
+1.定义类
+	Ext.define(class name, class members/properties, callback function);
+		类名:类名称是根据应用程序结构的类名称。
+		 appName.folderName.ClassName		eg:studentApp.view.StudentView。
+
+
+	Ext.define(
+		//类名
+		studentApp.view.StudentDeatilsGrid, 
+		{
+		   //继承
+		   extend : 'Ext.grid.GridPanel',
+		   id : 'studentsDetailsGrid',
+		   store : 'StudentsDetailsGridStore',
+		   renderTo : 'studentsDetailsRenderDiv',
+		   layout : 'fit',
+		   //属性
+		   columns : [{
+		      text : 'Student Name',
+		      dataIndex : 'studentName'
+		   },{
+		      text : 'ID',
+		      dataIndex : 'studentId'
+		   },{
+		      text : 'Department',
+		      dataIndex : 'department'
+		   }]
+	});
+
+2.类的创建
+	1.使用new 
+		var studentObject = new student();
+		studentObject.getStudentName();
+	2.使用Ext.create();
+3.类的继承
+	1.Ext.extend
+	2.使用Mixins:
+
+
+4.容器
+	1.容器的基类：Ext.container.Container
+	2.作用：
+		1.添加其他的容器或者子组件
+		2.容器中可以有多个布局
+		3.可以添加或删除元素
+
+5.容器的用途
+	1.容器中定义组件
+		//组件
+		var component1 = Ext.create('Ext.Component', {
+     		html:'First Component'
+  		});
+  		//容器
+	   Ext.create('Ext.container.Container', {
+	      renderTo: Ext.getBody(),
+	      items: [component1]
+	   });
+	2.容器中添加容器
+		var container = Ext.create('Ext.container.Container', {
+      		items: [component3, component4]
+	   	});
+	   	Ext.create('Ext.container.Container', {
+	      renderTo: Ext.getBody(),
+	      items: [container]
+	   	});
+
+6.容器的类型
+	1.Ext.panel.Panel
+	2.Ext.form.Panel
+	3.Ext.tab.Panel
+	4.Ext.container.Viewport
+	5.Ext.grid.Panel

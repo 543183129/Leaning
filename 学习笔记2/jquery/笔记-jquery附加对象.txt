@@ -1,0 +1,20 @@
+地址:http://api.jquery.com/jQuery.extend/#jQuery-extend-deep-target-object1-objectN
+
+jQuery.extend( target [, object1 ] [, objectN ] )
+原理:将两个或多个对象的内容合并到第一个对象中。
+jQuery.extend( [deep ], target, object1 [, objectN ] )
+	true:则合并为递归--支持合并
+	false：参数不被支持
+	注意:
+		1.当两个或多个对象的参数支持，所有对象的属性添加到目标对象。忽略
+		    null或未定义的参数。
+		2.只有一个参数，这意味着目标参数被省略
+		3.目标对象将被修改。但是，如果您希望保留两个原始对象，则可以通过将空对象作为目标来实现：
+			var object = $.extend({}, object1, object2);
+		4.属性的合并:
+			无true/false原始属性会被后来的属性完全的覆盖掉
+			当有true的时候，将会进行递归合并
+			非原始对象中未定义属性不被复制，从对象原型继承的属性将被复制。
+		5.合并默认值和选项，不修改默认值----常见的插件开发模式。
+
+

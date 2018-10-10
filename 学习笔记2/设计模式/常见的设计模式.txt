@@ -1,0 +1,74 @@
+1.简单工厂模式 ==========》不属于gof23中设计模式中的
+	一个工厂类，根据传入的参数，动态决定创建哪一个类
+		spring中的BeanFactory就是简单工厂模式的体现
+2.工厂方法
+	
+
+3.单例模式(singleton)
+	保证一个类仅有一个实例，并提供一个访问它的全局访问点
+		spring中的单例提供全局访问点:beanfacotry
+		核心:Spring默认的bean均为单例，可以通过singleton='true|false'或者scope=''来指定
+	
+	public class SingletonClass { 
+		//使用懒加载，使用的时候才去创建，而不是一开始就创建
+  		private  volatile static SingletonClass instance = null; 
+  		//使用锁机制，保证在多线程的情况下是可以使用的！！
+		public  static SingletonClass getInstance() { 
+			//判断instance是不是为null，如果为null，加锁初始化；如果不为null，直接返回instance
+			if(instance == null) { 
+				synchronized (SingletonClass.class) { 
+		        if (instance == null) { 
+		          instance = new SingletonClass(); 
+		        } 
+			} 
+		   	return instance; 
+		} 
+		private SingletonClass() { } 
+	 } 
+	double-checked locking  双重检查锁定=>设计实现单例模式。到此为止
+		JDK1.5之后的Java的解决方案
+	2.使用静态内部类
+		SingletonClass没有static的属性，因此并不会被初始化
+			调用getInstance()加载SingletonClassInstance类
+				static的SingletonClass实例，因此需要调用SingletonClass的构造方法
+	public class SingletonClass { 
+		private static class SingletonClassInstance { 
+   			private static final SingletonClass instance = new SingletonClass(); 
+  		} 
+  		public static SingletonClass getInstance() { 
+    		return SingletonClassInstance.instance; 
+  		} 
+  		private SingletonClass() { } 
+	} 
+
+
+	
+
+4.适配器Adapter
+	1.在spring的aop中，使用Advice（通知）来增强被代理类的功能，spring实现这一aop功能的原理就是使用代理模式。
+		即生成被代理类的代理类，并在代理类的方法前面，设置拦截器，通过执行拦截器中的内容增强代理方法的功能，实现面向切面的编程
+	2.i/o适配器模式
+		适配器就是InputStreamReader类，源角色就是InputStream代表的实例对象，目标接口就是Reader类
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+工厂模式
+	实例化对象模式，用工厂的方法替代new操作的一种模式

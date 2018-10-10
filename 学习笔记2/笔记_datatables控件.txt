@@ -1,0 +1,41 @@
+1.引用文件
+	<!-- DataTables CSS -->
+		<link rel="stylesheet" type="text/css" href="css/jquery.dataTables.css">
+
+	<!-- jQuery -->
+	<script type="text/javascript" charset="utf8" src="js/jquery.js"></script>
+
+	<!-- DataTables -->
+	<script type="text/javascript" charset="utf8"
+	src="js/jquery.dataTables.js"></script>
+2.用法:
+	$(document).ready(function() {
+           $('#table').DataTable();
+    });
+    1.默认开启:
+    	搜索，排序，分页
+3.dom=>定位
+	l - Length changing 每页显示多少条数据选项
+	f - Filtering input 搜索框
+	t - The Table 表格
+	i - Information 表格信息
+	p - Pagination 分页按钮
+	r - pRocessing 加载等待显示信息
+	< and > - div elements 一个div元素
+	<"#id" and > - div with an id 指定id的div元素
+	<"class" and > - div with a class 指定样式名的div元素
+	<"#id.class" and > - div with an id and class 指定id和样式的div元素
+
+	eg： 
+		$('#table').dataTable( {
+	        "dom": '<"top"if>rt<"bottom"pl><"clear">'
+	    } );
+4.分页样式
+	 "pagingType":   full_numbers/simple_numbers/numbers/simple/full/
+	 				 first_last_numbers
+	 				
+
+
+dataTables 二次加载的时候会使事件失效
+	原因是刷新表格的时候，必须连同点击事件一起刷新。。。。
+		解决办法:在initComplete 中对事件进行重新的加载

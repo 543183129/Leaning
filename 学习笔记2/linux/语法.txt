@@ -1,0 +1,15 @@
+1.进入超级管理员
+	sudo:
+		super-user do：让当前用户暂时以管理员的身份root来执行这条命令
+		sudo passwd 					修改密码
+		sudo gedit /etc/shadow        	编辑/etc/shadow密码文件
+	su命令:
+		su  		命令命令后回车表示切换当前的用户到root用户
+		su - root 	加了"-"后表示也切换的当前的环境变量到新用户的环境变量
+		su root		（或者其他用户名）表示不切换环境变量到当前用户下
+
+1.安装gedit
+
+
+2.配置静态的ip地址
+

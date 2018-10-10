@@ -1,0 +1,6 @@
+1。	JNDI：Java Naming and Directory Interface
+		中文名:java名称目录接口
+		作用:java应用程序访问数据管理和配置交给存放java应用的服务器（tomcat）
+		好处:在tomcat中配置jndi的参数，可以避免程序和数据库之间的紧耦合，使应用程序更易于配置，易于部署
+			只需要提供一个数据源即可
+			 

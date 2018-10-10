@@ -1,0 +1,16 @@
+spring 的版本
+			版本号			发布时间		备注
+			v0.5.0.M1		2013-08-06	
+			v1.0.0.RELEASE	2014-04-01	
+			v1.2.0.RELEASE	2014-12-11	
+			v1.3.0.RELEASE	2015-11-16	
+			v1.4.0.RELEASE	2016-07-29	
+			v1.5.0.RELEASE	2017-01-30	
+			v2.0.0.M2		2017-06-16	最新
+环境要求
+     依赖STS(Spring Tools Suite)来搭建开发环境
+     	基于EclipseIDE开发环境中用于开发Spring 的应用程序工具
+   	安装方式:
+   		直接在Eclipse中安装STS 插件
+   		直接下载和安装STS
+   	版本:3.9.5 RELEASE

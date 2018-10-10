@@ -1,0 +1,173 @@
+1.Dom和jquery的相互转化
+	dom=>jquery
+		$(dom对象).css
+	jquery=>dom
+		$(obj)[0].innerHtml="";
+		$(obj).get(0).value="";
+2.选择器
+	基本选择器
+		id				$("#id")
+		类选择器		$(".class")
+		元素选择器		$("div")
+		选择器组		$("#id,.class")
+		*代表所有	
+
+
+	层级选择器
+		$("select select2")	select元素下的所有元素
+		$("select>select2")	select元素下的select2元素 
+		$("select+select2")	select元素下的下一个弟弟
+		$("select~select2") select元素下的所有弟弟
+
+	表单选择器:
+		:text    $("input:text")
+		:password
+		....
+
+
+	过滤选择器
+		基本过滤器：
+			:first
+			:last
+			:event
+			:odd
+			:eq(index)
+			:gt(index)
+			:lt(index)
+			:not(select)    把某个元素排除在外
+		内容过滤器：
+			:contains(text)
+			:empty
+			:has(select)	匹配含有选择器所匹配的元素
+			:parent			匹配含有子元素或文本的元素
+		可见性过滤器：
+			:visible	.hidden("slow")
+			:hidden		.show(800)
+		属性过滤器：
+			[attribute]
+			[arrtibute=value]
+			[arrtibute!=value]
+		子元素过滤选择器:
+			:eq(index)  下标从0开始
+		状态过滤器：
+			:enabled
+			:disabled
+			:ckecked
+			:selected
+3.读写dom节点
+	.val()
+	.html()
+	.text()
+	.attr()
+4.遍历dom节点
+	children()/children(selector) 直接子节点
+	next()/next(selector)
+	prev()/prev(selector)
+	siblings()/siblings(selector) 所有兄弟节点
+	find(select) 查找满足选择器的所有后代
+	parent() 	父节点
+5.dom节点的add/modify
+	创建节点: append("<div></div>");
+				prepend(obj) 子一个节点
+				.after(obj)下一个兄弟节点
+				.before(obj)上一个兄弟节点
+6.样式操作
+	.css
+	.addclass
+	.attr('class','')
+	removeClass('')
+	.toggleClass(''): 切换样式
+	.hasClass('') 是否有某个样式
+7.事件处理
+	$("#id").click(function(){
+
+	})
+	$("#id").bind('click',function(){
+
+	})
+
+	//获取事件源
+		var obj=e.target;
+		e.innerHtml="";
+		e.pageX,e.pageY
+	//事件冒泡处理
+		定义:多个元素响应一个事件
+		取消冒泡事件
+			e.stopPropagation();
+			return false;
+	//阻止默认行为
+		eg:阻止a标签超链接的跳转
+			e.preventDefault();
+			return false;
+	//合成事件
+		.hover(over,out)   鼠标悬停事件
+		.toggle()			切换元素的可见状态
+	//事件模拟操作
+		//触发被选元素的事件
+		.trigger('事件类型')   
+8.类数组对象
+	jquery 内部采用"类数组对象的方式"作为存储结构
+	常用方法
+		.length
+		each(fn)
+		eq(index)	取出dom对象
+		get(index) 将数组转化为dom对象
+		index(obj):返回dom对象在类数组中的下标
+
+
+
+10：常用  
+	checkbox 中被选中 以checksub开头
+		$("input[name^='checksub']")
+	全选/全不选
+		/*全选全不选*/
+		$("#selectAll").click(function() {
+			var arr = $("input[name^='empId_']")
+			$.each(arr,function(i,n){
+				arr[i].checked=$("#selectAll")[0].checked;
+			})
+		});
+	下拉选择框中设置选择
+		1.已知道选择值
+		    设置属性  displayText
+			$("#Edit_depId").find("option[displayText='"+depName+"']").attr("selected",true); 
+
+		   错误:$(".selector").find("option[text='pxx']").attr("selected",true); 
+		   原因:find 是属性选择器，text不是其属性
+
+		   select role_id roleId,role_name roleName  from tbl_role
+
+
+
+注意点:
+  uuid 在js 中不能作为参数传递的解决办法
+  	  <input onclick="ShowDialog('+data.roleId+')" />
+  	=》  <input onclick="ShowDialog(\''+data.roleId+'\')" />
+
+  radio 首次赋值有效，再次赋值无效
+  	   $("#optionsRadios3").attr("checked","checked");   ×
+  	   $("#optionsRadios3").prop("checked","checked");
+
+  	   ajax的错误处理:
+  	   		$.ajax({.....,error:function(){
+  	   			window.location='html/error.html';
+  	   		}})
+  	   		$.post("submitCon.do",json,function(data){
+				alert(data.msg);
+			}).error(function (xhr, status, info) {  
+			if (xhr.status==404) {
+				window.location="error.html";
+			}else if (xhr.status==500) {
+				alert("系统繁忙，请稍后再试");
+			}
+//		      alert(xhr.status + ':' +xhr.statusText);  
+//		      alert(status + ':' + info)
+		})
+
+
+
+ajax 的浅序列化
+	可以将参数名称不用变化eg:para[]=>para
+	$.ajax({
+		traditional: true,
+	})

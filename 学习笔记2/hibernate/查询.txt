@@ -1,0 +1,33 @@
+﻿1.查询指定的列
+	分装对象-=>只查询部分字段
+		select new UserEntity(user.userId,user.username) from UserEntity user
+		=》需要定义对应的构造函数
+2.条件查询
+	1.占位符 ?
+		from Monkey m where m.name=?
+		query.setParameter(0, "大猴子");
+	2.命名参数
+		from Monkey m where m.name=:monkeyName
+		query.setParameter("monkeyName", "大猴子");
+	3.范围查询
+		from Dept d where deptId between ? and ?
+		q.setParameter(0, 1);
+        	q.setParameter(1, 20);
+	4.模糊查询 Like
+		Query q = session.createQuery("from Dept d where deptName like ?");
+       		q.setString(0, "%部%");
+    	5.聚合函数
+    		Query query = session.createQuery("select COUNT(*) from Monkey");
+        	Object o = query.uniqueResult();
+   	 6.分组查询
+    		一样的
+    	 	Query q = session.createQuery("select e.dept, count(*) from Employee e group by e.dept");
+   	 7.连接查询
+    		//1) 内连接   【映射已经配置好了关系，关联的时候，直接写对象的属性即可】
+    	  	  	Query q = session.createQuery("from Dept d inner join d.emps");
+    	    	//2) 左外连接
+    	  	  	Query q = session.createQuery("from Dept d left join d.emps");
+        	//3) 右外连接
+        		Query q = session.createQuery("from Employee e right join e.dept");
+    	8.迫切连接=》把左表的数据填充到右表中，使在返回的时候是一个对象、而不是对象数组！              待定
+    		Query q = session.createQuery("from Dept d inner join fetch d.emps");

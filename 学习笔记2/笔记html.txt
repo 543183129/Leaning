@@ -1,0 +1,70 @@
+1.	行内元素：span img br a input（行内替换元素）
+	块状元素：h1-h6,p ul table div ....
+2.	行内元素设置margin/padding 时候左右设置有效，上下无效
+		设置width和height也是无效的
+3.	input type="text" 文本域的默认宽度是20个字符
+4.	input type="radio" name="sex" 单选按钮的 name要一致
+5.css的优先级机制
+	优先级:	内联样式最高
+	选择器的优先级
+			!important	最高
+			内联样式	1000
+			Id选择器	100     #
+			类选择器	10	Class=》.	
+			元素选择器	1
+6.	居中方式:
+		height:50px; line-height:50px
+		text_align:center
+		<center>
+	去掉下划线:
+		text-decoration:none
+7.布局
+	marging:
+	padding:向外部撑开
+	display:block		块状元素
+		inline(默认)	行内元素
+		inline-block	内联元素的增强（显示再同一行,但是又可以控制高度和宽度）eg:<div class="ib"></div><span clsss="i"></span>
+	ib:display:inline-block
+	i:display：inline
+8.position
+	static:
+	relative:偏移某个距离  参照物：原先位置的左上角圆点
+	absolute:脱离文档流，后面元素会补占原来的空间
+		参照物：如果父级有position ，则以其位参照，否则浏览器左上角
+	fixed:视窗的本身
+	top/bottom/right/left
+	z-index
+9.overflow:
+	visible：超过部分显示
+	hidden: 超过部分隐藏
+	scroll:内容被剪切，滚动条查看（即使没有也会有滚动条）
+	auto:如果被剪切，超过部分以滚动条查看
+	inherit:从父元素中继承overflow属性的值   Ie不支持
+10：初始化样式：
+	*{margin:0;padding:0 border:0}
+11 clear :
+
+
+
+
+
+12：css hack:针对不同浏览器，不同版本写相应的css 代码的过程
+	3种形式:css属性前缀法(类内部hack)
+		选择器前缀法
+		IE条件注释法
+
+	eg:
+		<!--[if IE]>
+			这段文字只在IE浏览器显示
+		<![endif]-->
+
+
+		<!--[if IE 6]>
+			这段文字只在IE6浏览器显示
+		<![endif]-->
+		<!--[if gte IE 6]>
+			这段文字只在IE6以上(包括)版本IE浏览器显示
+		<![endif]-->
+		<!--[if !IE]>
+			这段文字只在非IE浏览器显示
+		<![endif]-->

@@ -1,0 +1,18 @@
+1.创建main 工程
+	psvm=>public static void main(string[] args){}
+
+	设置快捷键
+	File-settings-Editor-LiveTemplates下的
+	   添加一个TemplatesGroup 和liveTemplates  
+	   最后default 那里选中Java区域
+2.创建web工程
+
+
+3.maven 的使用
+	1.创建工程的时候设置从本机获取骨架
+		archetypeCatalog=internal
+	2.将directory变成java 目录
+
+
+快捷键
+		

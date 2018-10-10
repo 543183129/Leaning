@@ -1,0 +1,118 @@
+游戏架构
+	场景和障碍物 、角色（敌方/我方）
+	刷新线程
+	战斗系统
+
+
+
+	游戏引擎 cocos2dxts
+	 b/s canvs 画笔
+
+
+
+
+
+	 锁的级别
+	 	oracle:  行级 
+	 	mysql:
+	 	sqlite:  手机操作,单线程
+
+	 	json协议，xml协议，行协议
+	 	socket原理:
+	 		api包
+	 	tcp==========》3次握手
+	 	udp的区别====》适用于视屏，帧可以丢失
+	 	
+
+	 	心跳包:
+	 	1.定时器
+	 	2.keepalive
+
+
+	 	文件传输：
+	 		断电续传
+
+	 	ui  socket  ===socket的io线程
+	 	html browser===tomcate的httprequest
+	 	  3张表  大大小
+	 	  oracle 的结构
+
+
+	 	 浏览器实现方式   窗口
+
+
+	 	 mvc 的好处
+	 	 	jsp+javabean
+	 	 	servlet+javabean
+
+	 	 mvc 设计模式
+
+	 	 EJB
+	 	 hia....           比较灵活
+	 	 mybatis 的对比     
+
+
+	 	 ssm/ssh/jfinal
+
+	 	 面向对象的设计原则
+	 	 集合树
+
+
+	 	 netty
+
+
+
+
+
+Java compiler level does not match the version of the installed Java project facet.	HealthProjectV4		Unknown	Faceted Project Problem (Java Version Mismatch)
+
+
+
+
+
+
+
+线程
+   多线程的概念
+   锁的使用
+   	  synchronized块获得的是一个对象锁，换句话说，synchronized块锁定的是整个对象。
+   	  两个锁块之间具有互斥性
+     1.synchronized方法：效率上慢
+     2.synchronized块：
+     3.其他对象作为监视器来实现同步功能：synchronized(非this对象)、
+     	注意:多个线程中"对象监视器"为同一个对象的时候，同一时间只有一个线程在执行
+list/set 
+
+
+
+object 的方法有那些
+	tostring()
+	finalizer()
+	equals()
+	hashCode()
+
+
+	dubbo/webserver
+
+
+	高并发：负载均衡
+		缓存/分布式处理/静态页面访问
+	云平台服务-不要建立
+		按照dobbo的规范来操作
+
+
+	分布式部署===》多台的webserver
+	分布式处理===》业务
+
+
+
+ 
+
+
+
+    怎么如让线程顺序的执行： 使用join()，等待线程结束
+
+
+
+
+

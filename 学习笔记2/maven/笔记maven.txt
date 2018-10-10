@@ -1,0 +1,106 @@
+1.电脑-搭建环境
+	MAVEN_HOME:
+	path:
+	测试:cmd + mvn -version
+2.maven设置
+	设置本地仓库
+		conf/settings.xml
+			<localRepository>xxxxxxxxxx</localRepository>
+3.eclipse中搭配环境
+
+
+
+
+安装问题
+1.cmd 运行mvn 报 cmd的错误
+	安装环境有问题--》jdk的安装环境（%system%\bin 等3个没有安装）
+1. maven 已运行就停止
+	项目中没有project Facets
+		解决办法：
+			在.project文件中找到<natures>...</natures> 添加如下
+			<nature>org.eclipse.wst.common.project.facet.core.nature</nature>
+			<nature>org.eclipse.wst.common.modulecore.ModuleCoreNature</nature>
+			<nature>org.eclipse.jem.workbench.JavaEMFNature</nature>
+
+
+mvn install:install-file 
+-Dfile=F:\dbDriver\c3p0-0.9.5.2\c3p0-oracle-thin-extras-0.9.5.2.jar 
+-DgroupId=c3p0 
+-DartifactId=c3p0-oracle-thin-extras
+-Dversion=0.9.0.2
+-Dpackaging=jar
+
+mvn install:install-file -Dfile=F:\dbDriver\c3p0-0.9.5.2\c3p0-oracle-thin-extras-0.9.5.2.jar -DgroupId=c3p0 
+-DartifactId=c3p0-oracle-thin-extras
+-Dversion=0.9.0.2
+-Dpackaging=jar
+
+
+F:\MyEclipse\workPlace\HeathProjectV2\WebRoot\WEB-INF\lib\jbarcode-0.2.8.jar
+
+
+
+mvn install:install-file -Dfile=F:\dbDriver\jbarcode-0.2.8.jar -DgroupId=jbarcode -DartifactId=jbarcode -Dversion=0.2.8 -Dpackaging=jar
+
+mvn install:install-file   -Dfile=C:\developmenttools\maven\exti\jta-1_0_1B-classes.zip   -DgroupId=javax.transaction   -DartifactId=jta -Dversion=1.0.1B   -Dpackaging=jar
+
+
+
+mvn install:install-file -DgroupId=com.google.code.kaptcha -DartifactId=kaptcha -Dversion=2.3 -Dpackaging=jar -Dfile=D:\kaptcha-2.3.jar
+
+mvn install:install-file -DgroupId=javax.jms -DartifactId=jms -Dversion=1.1 -Dpackaging=jar -Dfile=D:\jms-1.1.jar
+
+
+
+
+
+
+
+
+
+
+
+1.目录结构
+	1.源代码: /src/main/java/
+	2.单元测试代码： /src/test/java/
+2.pom.xml
+	
+ 根元素:project
+ 	3个子节点
+ 		groupId：项目组   	这是项目组的编号
+		artifactId：名字	这是项目的ID
+		version：版本		这是项目的版本
+
+
+maven 中使用JDK1.8
+	编译器使用JDK1.8
+bug	
+	1.maven 中 运行tomcat:run没有反应
+		解决方法:
+			1.添加环境变量:M2_HOME=maven的路径
+			2.在myeclise 的jdk环境变量中添加
+			  	-Dmaven.multiModuleProjectDirectory=$M2_HOME
+
+
+明天:maven 中使用热部署
+	 maven的调试
+	 springboot进行开发
+
+
+
+
+
+
+常见问题:
+    1.通过maven的命令导入的jar包，识别不到
+       原因:先从中央仓库中获取到的文件是不存在的，但是会写入数据到本地
+       解决方法:每次要导入之前先把本地中相关的文件删除，然后用mav导入
+
+    2.程序中没有红色的*，但是项目名称中还是存在错误
+       原因:在project Factors 中java 的版本不匹配
+       解决方式:
+       		1.先找到项目的.project 中，添加如下:
+        		<nature>org.eclipse.wst.common.project.facet.core.nature</nature>
+				<nature>org.eclipse.wst.common.modulecore.ModuleCoreNature</nature>
+				<nature>org.eclipse.jem.workbench.JavaEMFNature</nature>
+			2.找到project Factors,修改其中的java版本对应上即可

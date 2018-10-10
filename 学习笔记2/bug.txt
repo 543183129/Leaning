@@ -1,0 +1,9 @@
+1.Injection  报错
+	jdk 的版本有问题
+2.xml文件有误：
+	1.用一键生成会出现代码重复的问题 本来 60多行的变成300多行
+3.
+	at org.springframework.asm.ClassReader.<init>(Unknown Source)
+	原因:spirng中的asm与jdk不兼容
+	解决方式：
+		想要使用jdk1.8 的话，spring  需要用到4.0以上

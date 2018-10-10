@@ -1,0 +1,4 @@
+cmd
+1.定位到目录中
+2.输入serve
+	localhost:5000

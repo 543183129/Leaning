@@ -1,0 +1,9 @@
+1.常用注解
+	@RestController=@Controller+@ResponseBody
+		返回数据而不是视图
+	@SpringBootApplication   注释的集合=》比较方便
+		@Configuration					配置文件
+		@EnableAutoConfiguration	 	初始化对象
+		@ComponentScan   				组件扫描器
+
+	@Bean的作用

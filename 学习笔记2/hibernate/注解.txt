@@ -1,0 +1,64 @@
+1.各个注解
+	类名中
+		@Entity
+		@Table(name="tbl_provice")
+	getting的方法中
+		主键
+			@Id :				声明为主键
+			@EmbeddedId:		组合主键
+			@GeneratedValue 	指定主键的生成策略    strategy = GenerationType.IDENTITY
+				TABLE：使用表保存id值，单独生成一个表　更多 
+				IDENTITY：identitycolumn，通过auto_increment产生 
+				SEQUENCR ：sequence，需要数据库支持序列 
+				AUTO：根据数据库的不同使用上面三个（当我使用Mysql并不确定生成策略的时候，使用了Table策略）
+		一般属性
+			＠Column
+				nullable:		是否允许为空						默认true,
+				insertable		列是否包含在sql INSERT中
+				updatable		列是否包含在sql INSERT中
+				columnDefinition 默认为生成的SQL，创建一个推断类型的列
+				注意:如果不使用@Column,将默认属性名称用作列名称
+		对象关联关系的注解
+			@JoinColumn 		本表中指向另一个表的外键
+			＠OneToOne
+			@OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
+
+		级联
+			Cascade 级联
+				CascadeType:
+					REFRESH: 级联刷新，
+					REMOVE： 级联删除  当调用remove()方法删除Ｈｕｓｂａｎｄ实体时会先级联删除ｗｉｆｅ的相关数据！
+					MERGE：  级联更新，ｈｕｓｂａｎｄ中的数据改变了会相应的更新OＷｉｆｅ中的数据	
+					ALL	
+					PERSIST: 级联保存，当调用了Persist() 方法，会级联保存相应的数据
+		orphanRemoval :
+			使用：Cascade设置为PERSIST的时候，不设置的话则不会删除wife中的数据
+						设置的话，则两者都删除
+		fetch:关联对象的抓取
+			select:查询n+1次
+			join:	不会多次查询
+
+	继承中:子类继承父类=>extends
+		一个类一张表的映射
+			在父类中:@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+			在子类中:@AttributeOverrides({
+        				@AttributeOverride(name = "id", column = @Column(name = "id")),
+       					@AttributeOverride(name = "name", column = @Column(name = "name")) })
+       	一个层次一张表的映射：
+       		在父类中:	
+       				@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+       				@DiscriminatorColumn(name="type",discriminatorType=DiscriminatorType.STRING)
+       				@DiscriminatorValue(value="employee")
+       		在子类中:
+       				@DiscriminatorValue("regularemployee")
+
+
+
+
+2.时间格式
+	@Column(name = "`create_date`", insertable = false, columnDefinition = "datetime default now()", nullable = false)
+
+
+	使用一对一单项关联即可
+		一一对一双向关联添加的时候失败????????????????????????????
+    

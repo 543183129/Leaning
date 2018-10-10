@@ -1,0 +1,31 @@
+1.日期转化
+	select to_date('2017-08-20 13:15:20','yyyy-mm-dd hh24:mi:ss') from dual
+2.dbConnection 作为参数传递的原因
+	可以作为事务进行处理
+
+3.生成表空间 
+	create tablespace AutoTest   
+	datafile 'F:/Oracle/oradata/orcl/AutoTest.dbf'   
+	size 100M   
+	autoextend on next 5M maxsize 3000M;  
+4.创建用户
+	create user auto identified by "auto"
+	default tablespace AutoTest    
+5.授权
+	grant connect,resource,dba to auto;
+
+数据库名称		用户名		密码
+HeathProject    JF1705     JF1705
+HealthProject2	health	   health
+
+
+--3.生成表空间 
+  create tablespace yyghTest
+  datafile 'E:\oracle\product\10.2.0\oradata\yygh\yyghTest1.dbf'   
+  size 100M   
+  autoextend on next 5M maxsize 3000M;  
+--4.创建用户
+  create user yygh_test identified by "yygh_test"
+  default tablespace yyghTest    
+--5.授权
+  grant connect,resource,dba to yygh_test;

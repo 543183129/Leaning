@@ -1,0 +1,58 @@
+1.Java的反射机制（Reflection）
+	功能:
+		运行时判断对象所属的类
+		运行时构造类的对象
+		运行时判断类所具有的成员变量和方法
+		运行时调用对象的方法
+	反射机制
+		通过Reflection 获取class的内部信息
+			modifiers：修饰语（public、static）/ superclass / fields / methods
+		改变fields的内容
+		调用methods的方法
+
+Java Reflection API简介
+	默认位于:java.lang.reflect包中
+	Class类：代表一个类，位于java.lang包下
+	Field类：代表类的成员变量（成员变量也称为类的属性）。
+　　Method类：代表类的方法。
+　　Constructor类：代表类的构造方法。
+　　Array类：提供了动态创建数组，以及访问数组的元素的静态方法。
+
+1.获取对象的3种方式=>输出完整的类名
+	1.静态方法:Class.forname("XXX");
+	2.类.class=》语法
+	3.对象的getClass()方法
+
+	输出类名(不包含class):.getName();
+
+2.生成对象的2方式
+	1。newInstance()
+	2. 先获取Constructor对象，在通过Constructor对象的newInstance()方法来生成一个自定义的类
+		有一个无参数的构造方法，也有带参数的构造方法
+		Constructor cons=Object.class.getConstructor(new Class[]{})；
+		Object obj = cons.newInstance(new Object[] {});
+
+
+ORM:对象关系映射
+	主要包含：
+		映射类
+		映射文件
+		数据库配置文件
+
+
+
+
+
+
+
+
+？？mybatis的对象放在那里？？
++mybatis 
+
+
+
+不懂点:
+	Java中，无论生成某个类的多少个对象，这些对象都会对应于同一个Class对象
+
+
+	

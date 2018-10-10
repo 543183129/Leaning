@@ -1,0 +1,67 @@
+1.布局=》关键字layout
+	XY坐标定位：					layout: 'absolute'
+	手风琴布局：					layout: 'accordion'
+	锚点布局（x相对容器大小）：		layout: 'anchor' 
+	边框布局						layout: 'border' 
+	卡片布局						layout: 'layout-cardtabs' 
+	底部导航布局					layout: 'card' 
+	列布局							layout: 'column' 
+	表格布局						layout: 'table'
+									layout: 'vbox'
+
+2.组件
+	网格		
+		 Ext.create('Ext.grid.Panel',{
+			 grid properties..
+			 columns : [Columns]
+		 });
+
+
+
+bmbh00	number(5)			部门编号
+bh0000	varchar2(15)			编号，层次码,打印顺序号
+flag00	char(1)		'1'	标志:'1'--叶子,'0'--树枝
+bmmc00	varchar2(30)			部门名称
+pysm00	varchar2(10)	y		拼音首码
+wbsm00	varchar2(10)	y		五笔首码
+bmxz00	char(1)	y	'a'	部门性质:'0'住院临床科室，'1'门诊临床科室,'2'门诊药房，'3',住院药房，'4'收费处，'5'医技科室,'6'药库,'7'外单位,'9'病区.'a'其它
+fybz00	char(1)	y	'0'	盘点调价标志:'3'(药房、药库)盘点,'5'药品正在调价,'0'其他
+sycw00	number(3)	y	0	实有床位，统计时用
+yjxx00	number(6,2)	y	0	预缴金下限，第一次预缴金的下限(病区押金下限)
+ckxx00	number(10,2)	y	100	催款下限，病区提示催款的下限
+jzxx00	number(6,2)	y	0	记账下限，病区病人实际余额的下限
+czbz00	char(1)	y	'0'	'0'新增部门,可删除,'1'现存部门,不可删除,'2'部门不存在,但不可删除
+yyid00	varchar2(6)	y		医院内部号
+jkbh01	varchar2(10)	y		与其他系统做接口时的编号
+ksdh00	varchar2(20)	y		科室代号
+xzghlb	varchar2(50)	y		限制挂号类别
+zxwxts	varchar2(180)	y		
+pxxh00	number(3)	y		排序字段
+sficu0	char(1)	y	'0'	icu字段
+kfcw00	number(5)	y	0	开放床位数
+sbksid	varchar2(6)	y		上报科室
+qfsx00	number(16,2)	y	0	欠费上限
+chqz00	varchar2(4)	y		
+sfwkks	varchar2(2)	y	'0'	是否外科系统科室 0:不是 1:是
+zjfz00	char(1)	y	'0'	
+ksflbh	varchar2(1)	y		是否属于无形资产标志 0不属于,1属于
+sfqtxs	char(1)	y	'y'	
+cjr000	number(5)	y		
+cjrqsj	char(16)	y	to_char(sysdate,'yyyymmddhh24:mi:ss')	
+xgr000	number(5)	y		
+xgrqsj	varchar2(16)	y		
+sfyx00	char(1)	y	'1'	
+yyksbm	varchar2(20)	y		厦门医保接口yyksbm(各家医院系统自定义的科室编码)
+dymzks	number(5)	y		对应门诊科室 bm_bmbm00.bmbh00
+dyzyks	number(5)	y		对应住院科室 bm_bmbm00.bmbh00
+bktszx	char(1)	y	'0'	本科室项目是否提示执行 0: 否 1:是
+bqjzcw	number(5)	y	0	病区急诊床位数
+ksgxcw	number(5)	y	0	科室共享床位数
+ybksbh	varchar2(10)	y		对应医保科室编号
+bzksbh	varchar2(10)	y		对应标准科室编号
+ybksmc	varchar2(50)	y		
+fbckxx	varchar2(20)	y		
+sjqx00	char(1)	y	'1'	数据权限 0:院级 1:科室
+jkbh02	varchar2(20)	y		
+whksid	number(5)	y		
+whksmc	varchar2(30)	y		

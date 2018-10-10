@@ -1,0 +1,78 @@
+1.配置文件
+	hbm2ddl.auto:create-drop
+				 create
+				 update
+				 validate
+	show_sql:	true=>打印sql语句
+2.启动
+	Configuration conf=new Configuration
+	conf.configure();
+	SessionFactory sf=conf.OpenSssion();
+	Session s=sf.openSession();
+	//打开事务
+	Transaction tx=s.beginTransaction();
+	//插入对象
+		User u=new User();
+		r.setName("xxx");
+		s.save();
+
+
+	sf.close();
+	//关闭事务
+	tx.commit();
+
+
+没有提交事务也可以进行保存??
+	表结构=》引擎
+
+3.映射文件
+	<hibernate-mapping package='包的路径'>
+	 //如果不写table，则包名和表名一样
+	<class name="User" table="tb_User">
+	//id单独提取出来
+	<id name='id'>
+		//主键生成器
+		<generator class='native'>
+	</id>
+
+	//属性
+	<property name="sex" >
+
+
+4.方法:
+	根据Id获取对象
+		s.get(stu.Class,id)
+	懒加载=》只有使用的时候才去加载数据，不要if(user != null)=>不会立即访问数据库
+		s.load(stu.Class,id)
+	保存数据
+		s.save(user);
+		s.persist(user);
+		在没有开启事务的时候,save会插入数据库，但是会进行回滚
+						  	persist则不会进行数据库的插入
+		s.saveOrUpdate();根据Id和version的值来确定是save 或者update
+
+		delete(object)
+			思路:先根据Id获取到对象s.get(user.class,id);
+			s.delete(xxx)
+		update
+		
+		merge
+		lock：把对象变成持久化对象，但不会同步对象的状态
+
+		查询列表的语句
+			List<user> list=s.createQuery("FROM User").list();
+		查询总记录数
+			Long count=（Long）s.createQuery("select count(*) from User")//
+							.uniqueResult();
+
+
+
+小技巧
+	不在同一行的=》 //
+	long => int		intValue()
+			count.intValue();
+
+	f3 
+	ctrl+t=》查看继承结构
+
+
