@@ -8,8 +8,10 @@
 
 查看文件信息
 $ ls -ah
-添加文件 并提交
+添加/修改 文件 并提交
 $ git add file1.txt
 $ git add file2.txt file3.txt
 $ git commit -m "add 3 files."
+查看状态;
+$  git status
 
